@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Resources\Editor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Editor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\Editor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AssetRipper.Fundamentals">
+      <HintPath>..\..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipper.Fundamentals.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AssetRipperCommon">
+      <HintPath>..\..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AssetRipperCore">
+      <HintPath>..\..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperCore.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AssetRipperLibrary">
+      <HintPath>..\..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperLibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
