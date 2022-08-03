@@ -11,11 +11,9 @@ namespace ValheimExportHelper
     {
       Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] Adding old PostProcessing package");
 
-      string postProcessingDir = Path.Join(ripper.Settings.AssetsPath, "PostProcessing");
-
       using (var zip = new ZipArchive(new MemoryStream(Resource.PostProcessing)))
       {
-        zip.ExtractToDirectory(postProcessingDir);
+        zip.ExtractToDirectory(ripper.Settings.AssetsPath);
       }
     }
   }

@@ -77,22 +77,28 @@ namespace ValheimExportHelper
     {
       string basePath = Path.Join(MonoScriptDir, "assembly_steamworks", "Steamworks");
 
+      string callbackSourceFile = Path.Join(basePath, "Callback.cs");
+      if (File.Exists(callbackSourceFile))
       {
-        string filename = Path.Join(basePath, "Callback.cs");
-        string file = File.ReadAllText(filename);
+        string file = File.ReadAllText(callbackSourceFile);
 
-        // Match the declaration of m_Func, capture the spacing for the brace, and match everything between it and its closing brace (non-greedy everything: [\s\S]+?)
-        file = Regex.Replace(file, @"event DispatchDelegate m_Func\n(\s+)\{[\s\S]+?^\1\}", "event DispatchDelegate m_Func;", RegexOptions.Multiline);
-        File.WriteAllText(filename, file);
+        // 1. event DispatchDelegate m_Func    Match the declaration of m_Func
+        // 2. \r?\n                            Newline (both Windows and Linux)
+        // 3. (\s+)\{                          Save the indentation for the brace into a capture group
+        // 4. [\s\S]+?                         Everything else (non-greedy, so it stops when it matches the next thing)
+        // 5. ^\1\}                            Closing brace with the same indentation as the opening brace
+        file = Regex.Replace(file, @"event DispatchDelegate m_Func\r?\n(\s+)\{[\s\S]+?^\1\}", "event DispatchDelegate m_Func;", RegexOptions.Multiline);
+        File.WriteAllText(callbackSourceFile, file);
       }
 
+      string callResultSourceFile = Path.Join(basePath, "CallResult.cs");
+      if (File.Exists(callResultSourceFile))
       {
-        string filename = Path.Join(basePath, "CallResult.cs");
-        string file = File.ReadAllText(filename);
+        string file = File.ReadAllText(callResultSourceFile);
 
-        // Match the declaration of m_Func, capture the spacing for the brace, and match everything between it and its closing brace (non-greedy everything: [\s\S]+?)
-        file = Regex.Replace(file, @"event APIDispatchDelegate m_Func\n(\s+)\{[\s\S]+?^\1\}", "event APIDispatchDelegate m_Func;", RegexOptions.Multiline);
-        File.WriteAllText(filename, file);
+        // Similar regex as above
+        file = Regex.Replace(file, @"event APIDispatchDelegate m_Func\r?\n(\s+)\{[\s\S]+?^\1\}", "event APIDispatchDelegate m_Func;", RegexOptions.Multiline);
+        File.WriteAllText(callResultSourceFile, file);
       }
     }
 

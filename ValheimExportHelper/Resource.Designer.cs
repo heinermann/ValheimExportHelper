@@ -92,6 +92,16 @@ namespace ValheimExportHelper {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] manifest {
+            get {
+                object obj = ResourceManager.GetObject("manifest", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] PostProcessing {
             get {
                 object obj = ResourceManager.GetObject("PostProcessing", resourceCulture);

@@ -121,6 +121,9 @@
   <data name="Editor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Editor.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="manifest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\manifest.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="PostProcessing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\PostProcessing.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

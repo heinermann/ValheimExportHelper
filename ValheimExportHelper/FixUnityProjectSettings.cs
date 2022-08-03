@@ -12,20 +12,26 @@ namespace ValheimExportHelper
 --- !u!129 &1";
 
     private string ProjectSettingsFile { get; set; } = string.Empty;
+    private string ProjectPackagePath { get; set; } = string.Empty;
 
     public void DoPostExport(Ripper ripper)
     {
       Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] Fixing Unity project settings");
 
       ProjectSettingsFile = Path.Join(ripper.Settings.ProjectSettingsPath, "ProjectSettings.asset");
+      ProjectPackagePath = Path.Join(ripper.Settings.ProjectRootPath, "Packages");
 
-      dynamic settings = ReadSettings(ripper);
-
-      //var serializer = new SerializerBuilder().Build();
-      //Logger.Warning(serializer.Serialize(settings));
-
+      dynamic settings = ReadSettings();
       ApplySettingsChanges(settings);
-      WriteSettings(ripper, settings);
+      WriteSettings(settings);
+      
+      RemoveCollabPackage();
+    }
+
+    private void RemoveCollabPackage()
+    {
+      Directory.CreateDirectory(ProjectPackagePath);
+      File.WriteAllBytes(Path.Join(ProjectPackagePath, "manifest.json"), Resource.manifest);
     }
 
     private void ApplySettingsChanges(dynamic settings)
@@ -44,7 +50,7 @@ namespace ValheimExportHelper
       };
     }
 
-    private dynamic ReadSettings(Ripper ripper)
+    private dynamic ReadSettings()
     {
       dynamic? yaml = null;
       string? yamlText = null;
@@ -75,7 +81,7 @@ namespace ValheimExportHelper
       return yaml;
     }
 
-    private void WriteSettings(Ripper ripper, dynamic settings)
+    private void WriteSettings(dynamic settings)
     {
       var serializer = new SerializerBuilder().Build();
       string result = serializer.Serialize(settings);
