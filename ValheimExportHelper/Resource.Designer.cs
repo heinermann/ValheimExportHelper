@@ -108,5 +108,28 @@ namespace ValheimExportHelper {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System.Collections;
+        ///using System.Collections.Generic;
+        ///using System.IO;
+        ///using System.IO.Compression;
+        ///using UnityEngine;
+        ///using UnityEditor;
+        ///using UnityEditor.SceneManagement;
+        ///
+        ///// Note: This script deletes and re-extracts the original shaders.
+        ///// This is because Unity periodically corrupts the shaders (and then they stop working).
+        ///[InitializeOnLoad]
+        ///public class ScuffedShaders : MonoBehaviour
+        ///{
+        ///    static void RestoreOriginalShaders() {
+        ///        Directory.Delete(&quot;Assets/Shader&quot;, recursive: t [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string ScuffedShaders {
+            get {
+                return ResourceManager.GetString("ScuffedShaders", resourceCulture);
+            }
+        }
     }
 }

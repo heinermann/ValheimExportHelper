@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Compile Remove="Resources\Editor.cs" />
+    <Compile Remove="Resources\ScuffedShaders.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
       <PackagePath>\</PackagePath>
     </None>
     <None Include="Resources\Editor.cs" />
+    <None Include="Resources\ScuffedShaders.cs" />
   </ItemGroup>
 
   <ItemGroup>
