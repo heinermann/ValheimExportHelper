@@ -5,6 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <PackageProjectUrl>https://github.com/heinermann/ValheimExportHelper</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/heinermann/ValheimExportHelper.git</RepositoryUrl>
+    <PackageTags>AssetRipper</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="Resources\Editor.cs" />
   </ItemGroup>
 
@@ -25,19 +33,19 @@
 
   <ItemGroup>
     <Reference Include="AssetRipper.Fundamentals">
-      <HintPath>..\..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipper.Fundamentals.dll</HintPath>
+      <HintPath>..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipper.Fundamentals.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AssetRipperCommon">
-      <HintPath>..\..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperCommon.dll</HintPath>
+      <HintPath>..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperCommon.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AssetRipperCore">
-      <HintPath>..\..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperCore.dll</HintPath>
+      <HintPath>..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AssetRipperLibrary">
-      <HintPath>..\..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperLibrary.dll</HintPath>
+      <HintPath>..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
