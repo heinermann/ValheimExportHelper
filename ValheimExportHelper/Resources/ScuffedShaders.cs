@@ -11,16 +11,26 @@ using UnityEditor.SceneManagement;
 [InitializeOnLoad]
 public class ScuffedShaders : MonoBehaviour
 {
-    static void RestoreOriginalShaders() {
-        Directory.Delete("Assets/Shader", recursive: true);
-        ZipFile.ExtractToDirectory("Assets/Shader_Original.zip", "Assets");
-    }
+  static void RestoreOriginalShaders() {
+    string tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
-    static ScuffedShaders() {
-        RestoreOriginalShaders();
+    Directory.CreateDirectory(tempDir);
+    Directory.CreateDirectory("Assets/Shader");
 
-        EditorSceneManager.sceneOpening += (path, mode) => {
-            RestoreOriginalShaders();
-        };
+    ZipFile.ExtractToDirectory("Assets/Shader_Original.zip", tempDir);
+
+    foreach (string filename in Directory.EnumerateFiles(tempDir))
+    {
+      File.Copy(filename, Path.Combine("Assets/Shader/", Path.GetFileName(filename)), overwrite: true);
     }
+    Directory.Delete(tempDir, recursive: true);
+  }
+
+  static ScuffedShaders() {
+    RestoreOriginalShaders();
+
+    EditorSceneManager.sceneOpening += (path, mode) => {
+      RestoreOriginalShaders();
+    };
+  }
 }

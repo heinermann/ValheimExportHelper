@@ -123,8 +123,8 @@ namespace ValheimExportHelper {
         ///[InitializeOnLoad]
         ///public class ScuffedShaders : MonoBehaviour
         ///{
-        ///    static void RestoreOriginalShaders() {
-        ///        Directory.Delete(&quot;Assets/Shader&quot;, recursive: t [rest of string was truncated]&quot;;.
+        ///  static void RestoreOriginalShaders() {
+        ///    string tempDir = Path.Combine(Path.GetTempPath(), Pa [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ScuffedShaders {
             get {
