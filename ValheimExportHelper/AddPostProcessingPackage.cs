@@ -1,19 +1,16 @@
-﻿using AssetRipper.Core.Logging;
-using AssetRipper.Library;
-using AssetRipper.Library.Exporters;
-using System.IO.Compression;
+﻿using System.IO.Compression;
 
 namespace ValheimExportHelper
 {
-  class AddPostProcessingPackage : IPostExporter
+  class AddPostProcessingPackage : PostExporterEx
   {
-    public void DoPostExport(Ripper ripper)
+    public override void Export()
     {
-      Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] Adding old PostProcessing package");
+      LogInfo("Adding a deprecated version of PostProcessing");
 
       using (var zip = new ZipArchive(new MemoryStream(Resource.PostProcessing)))
       {
-        zip.ExtractToDirectory(ripper.Settings.AssetsPath);
+        zip.ExtractToDirectory(CurrentRipper.Settings.AssetsPath);
       }
     }
   }

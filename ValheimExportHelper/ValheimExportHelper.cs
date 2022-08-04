@@ -1,5 +1,6 @@
 ﻿using AssetRipper.Core.Logging;
 using AssetRipper.Library;
+using AssetRipper.Library.Exporters;
 
 namespace ValheimExportHelper
 {
@@ -9,10 +10,8 @@ namespace ValheimExportHelper
 
     public override void Initialize()
     {
-      Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] Initializing...");
-
+      Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] Initializing... Waiting to detect game.");
       CurrentRipper.OnFinishLoadingGameStructure += OnFinishLoadingGameStructure;
-      CurrentRipper.OnFinishExporting += OnFinishExporting;
     }
 
     private bool IsValheim()
@@ -22,23 +21,23 @@ namespace ValheimExportHelper
 
     private void OnFinishLoadingGameStructure()
     {
-      if (!IsValheim()) return;
+      if (!IsValheim())
+      {
+        Logger.Info("[ValheimExportHelper] Game is NOT Valheim, we do nothing");
+        return;
+      }
 
       Logger.Info("[ValheimExportHelper] Detected as Valheim");
       Logger.Info(ValheimAsciiLogo);
-    }
 
-    private void OnFinishExporting()
-    {
-      if (!IsValheim()) return;
-
-      Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] OnFinishExporting");
-
-      CurrentRipper.AddPostExporter(new FixUnityProjectSettings()); // before exporting?
-      CurrentRipper.AddPostExporter(new AddPostProcessingPackage());
-      CurrentRipper.AddPostExporter(new AddEditorAssets());
-      CurrentRipper.AddPostExporter(new FixCodeFiles());
-      CurrentRipper.AddPostExporter(new FixSteam());
+      new List<IPostExporter>()
+      {
+        new FixUnityProjectSettings(),
+        new AddPostProcessingPackage(),
+        new AddEditorAssets(),
+        new FixCodeFiles(),
+        new FixSteam()
+      }.ForEach(CurrentRipper.AddPostExporter);
     }
 
     // Created and modified from https://asciiart.club/

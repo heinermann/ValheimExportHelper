@@ -1,35 +1,36 @@
-﻿using AssetRipper.Core.Logging;
-using AssetRipper.Library;
-using AssetRipper.Library.Exporters;
+﻿using AssetRipper.Core.Structure.GameStructure.Platforms;
 
 namespace ValheimExportHelper
 {
-  class FixSteam : IPostExporter
+  class FixSteam : PostExporterEx
   {
-    public void DoPostExport(Ripper ripper)
-    {
-      Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] Fixing Steam");
+    PlatformGameStructure GameStructure { get; set; }
 
-      CopyAppId(ripper);
-      CopyPlugins(ripper);
+    public override void Export()
+    {
+      LogInfo("Adding Steam library dependencies");
+
+      GameStructure = CurrentRipper.GameStructure.MixedStructure ?? CurrentRipper.GameStructure.PlatformStructure;
+
+      CopyAppId();
+      CopyPlugins();
     }
 
-    private void CopyAppId(Ripper ripper)
+    private void CopyAppId()
     {
-      string rootPath = ripper.GameStructure.MixedStructure?.RootPath ?? ripper.GameStructure.PlatformStructure?.RootPath;
-      string srcPath = Path.Join(rootPath, "steam_appid.txt");
-      string dstPath = Path.Join(ripper.Settings.ProjectRootPath, "steam_appid.txt");
-      File.Copy(srcPath, dstPath, overwrite: true);
+      string srcFilename = Path.Join(GameStructure.RootPath, "steam_appid.txt");
+      string dstFilename = Path.Join(CurrentRipper.Settings.ProjectRootPath, "steam_appid.txt");
+      File.Copy(srcFilename, dstFilename, overwrite: true);
     }
 
-    private void CopyPlugins(Ripper ripper)
+    private void CopyPlugins()
     {
-      string dstPath = Path.Join(ripper.Settings.AssetsPath, "Plugins", "x86_64");
+      string dstPath = Path.Join(CurrentRipper.Settings.AssetsPath, "Plugins", "x86_64");
       Directory.CreateDirectory(dstPath);
       
-      string gameDataPath = ripper.GameStructure.MixedStructure?.GameDataPath ?? ripper.GameStructure.PlatformStructure?.GameDataPath;
-      string srcPath = Path.Join(gameDataPath, "Plugins", "x86_64", "steam_api64.dll");
-      File.Copy(srcPath, Path.Join(dstPath, "steam_api64.dll"), overwrite: true);
+      string srcFilename = Path.Join(GameStructure.GameDataPath, "Plugins", "x86_64", "steam_api64.dll");
+      string dstFilename = Path.Join(dstPath, "steam_api64.dll");
+      File.Copy(srcFilename, dstFilename, overwrite: true);
     }
   }
 }

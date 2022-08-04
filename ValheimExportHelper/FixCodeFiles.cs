@@ -1,41 +1,32 @@
-﻿using AssetRipper.Core.Logging;
-using AssetRipper.Library;
-using AssetRipper.Library.Exporters;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace ValheimExportHelper
 {
-  class FixCodeFiles : IPostExporter
+  class FixCodeFiles : PostExporterEx
   {
-    private Ripper? Ripper { get; set; }
-    private string? MonoScriptDir { get; set; }
+    private string MonoScriptDir { get; set; }
 
-    public void DoPostExport(Ripper ripper)
+    public override void Export()
     {
-      Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] Fixing code files");
-
-      Ripper = ripper;
-      MonoScriptDir = Path.Join(ripper.Settings.AssetsPath, "MonoScript");
-
+      MonoScriptDir = Path.Join(CurrentRipper.Settings.AssetsPath, "MonoScript");
+      
       DeleteStandardLibraries();
+      
+      LogInfo("Fixing MonoScript/.cs source files (if any)");
       WholeCodebaseFixes();
       OneOffCodeFixes();
     }
 
     private void TryDelete(string filename)
     {
-      if (Directory.Exists(filename))
-      {
-        Directory.Delete(filename, true);
-      }
-      else if (File.Exists(filename))
-      {
-        File.Delete(filename);
-      }
+      if (Directory.Exists(filename)) Directory.Delete(filename, true);
+      else if (File.Exists(filename)) File.Delete(filename);
     }
 
     private void DeleteStandardLibraries()
     {
+      LogInfo("Deleting standard libraries");
+
       // Script: Decompiled
       TryDelete(Path.Join(MonoScriptDir, "Microsoft.CSharp"));
       TryDelete(Path.Join(MonoScriptDir, "Mono.Posix"));
@@ -44,8 +35,6 @@ namespace ValheimExportHelper
       TryDelete(Path.Join(MonoScriptDir, "Microsoft.CSharp.dll"));
       TryDelete(Path.Join(MonoScriptDir, "Mono.Posix.dll"));
     }
-
-    // TODO (regex replace in all Assets/MonoScript/**/*.cs files)
 
     private void FixupFile(string filename)
     {
@@ -57,7 +46,8 @@ namespace ValheimExportHelper
 
     private void WholeCodebaseFixes()
     {
-      foreach (var file in Directory.EnumerateFiles(MonoScriptDir, "*.cs", SearchOption.AllDirectories))
+      var codeFiles = Directory.EnumerateFiles(MonoScriptDir, "*.cs", SearchOption.AllDirectories);
+      foreach (var file in codeFiles)
       {
         FixupFile(file);
       }
@@ -73,6 +63,12 @@ namespace ValheimExportHelper
       File.WriteAllText(filename, file);
     }
 
+    // 1. \r?\n                            Newline (both Windows and Linux)
+    // 2. (\s+)\{                          Save the indentation for the brace into a capture group
+    // 3. [\s\S]+?                         Everything else (non-greedy, so it stops when it matches the next thing)
+    // 4. ^\1\}                            Closing brace with the same indentation as the opening brace
+    const string BlockRegex = @"\r?\n(\s+)\{[\s\S]+?^\1\}";
+
     private void FixSteamworks()
     {
       string basePath = Path.Join(MonoScriptDir, "assembly_steamworks", "Steamworks");
@@ -81,13 +77,7 @@ namespace ValheimExportHelper
       if (File.Exists(callbackSourceFile))
       {
         string file = File.ReadAllText(callbackSourceFile);
-
-        // 1. event DispatchDelegate m_Func    Match the declaration of m_Func
-        // 2. \r?\n                            Newline (both Windows and Linux)
-        // 3. (\s+)\{                          Save the indentation for the brace into a capture group
-        // 4. [\s\S]+?                         Everything else (non-greedy, so it stops when it matches the next thing)
-        // 5. ^\1\}                            Closing brace with the same indentation as the opening brace
-        file = Regex.Replace(file, @"event DispatchDelegate m_Func\r?\n(\s+)\{[\s\S]+?^\1\}", "event DispatchDelegate m_Func;", RegexOptions.Multiline);
+        file = Regex.Replace(file, $"event DispatchDelegate m_Func{BlockRegex}", "event DispatchDelegate m_Func;", RegexOptions.Multiline);
         File.WriteAllText(callbackSourceFile, file);
       }
 
@@ -95,9 +85,7 @@ namespace ValheimExportHelper
       if (File.Exists(callResultSourceFile))
       {
         string file = File.ReadAllText(callResultSourceFile);
-
-        // Similar regex as above
-        file = Regex.Replace(file, @"event APIDispatchDelegate m_Func\r?\n(\s+)\{[\s\S]+?^\1\}", "event APIDispatchDelegate m_Func;", RegexOptions.Multiline);
+        file = Regex.Replace(file, $"event APIDispatchDelegate m_Func{BlockRegex}", "event APIDispatchDelegate m_Func;", RegexOptions.Multiline);
         File.WriteAllText(callResultSourceFile, file);
       }
     }

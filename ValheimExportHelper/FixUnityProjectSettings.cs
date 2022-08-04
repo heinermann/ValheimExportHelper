@@ -1,11 +1,8 @@
-﻿using AssetRipper.Core.Logging;
-using AssetRipper.Library;
-using AssetRipper.Library.Exporters;
-using YamlDotNet.Serialization;
+﻿using YamlDotNet.Serialization;
 
 namespace ValheimExportHelper
 {
-  class FixUnityProjectSettings : IPostExporter
+  class FixUnityProjectSettings : PostExporterEx
   {
     const string UnityHeader = @"%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
@@ -14,22 +11,23 @@ namespace ValheimExportHelper
     private string ProjectSettingsFile { get; set; } = string.Empty;
     private string ProjectPackagePath { get; set; } = string.Empty;
 
-    public void DoPostExport(Ripper ripper)
+    public override void Export()
     {
-      Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] Fixing Unity project settings");
+      LogInfo("Fixing Unity project settings");
 
-      ProjectSettingsFile = Path.Join(ripper.Settings.ProjectSettingsPath, "ProjectSettings.asset");
-      ProjectPackagePath = Path.Join(ripper.Settings.ProjectRootPath, "Packages");
+      ProjectSettingsFile = Path.Join(CurrentRipper.Settings.ProjectSettingsPath, "ProjectSettings.asset");
+      ProjectPackagePath = Path.Join(CurrentRipper.Settings.ProjectRootPath, "Packages");
 
       dynamic settings = ReadSettings();
       ApplySettingsChanges(settings);
       WriteSettings(settings);
       
-      RemoveCollabPackage();
+      GeneratePackageList();
     }
 
-    private void RemoveCollabPackage()
+    private void GeneratePackageList()
     {
+      // Generates the package list without version control or postprocessing (these need to be excluded).
       Directory.CreateDirectory(ProjectPackagePath);
       File.WriteAllBytes(Path.Join(ProjectPackagePath, "manifest.json"), Resource.manifest);
     }
@@ -50,35 +48,48 @@ namespace ValheimExportHelper
       };
     }
 
-    private dynamic ReadSettings()
+    private bool IsValidYamlLine(string line)
     {
-      dynamic? yaml = null;
-      string? yamlText = null;
+      return !line.StartsWith('%') && !line.StartsWith("---");
+    }
+
+    private string ReadYamlFileAsText(string fileName)
+    {
       try
       {
-        string[] yamlLines = File.ReadAllLines(ProjectSettingsFile);
-        yamlLines = yamlLines.Where(line => !line.StartsWith('%') && !line.StartsWith("---")).ToArray();
-        yamlText = String.Join('\n', yamlLines);
+        string[] yamlLines = File.ReadAllLines(fileName)
+          .Where(IsValidYamlLine)
+          .ToArray();
+        return String.Join('\n', yamlLines);
       }
       catch
       {
-        Logger.Error(LogCategory.Plugin, $"[ValheimExportHelper] Failed to open {ProjectSettingsFile}.");
+        LogError($"Failed to open {ProjectSettingsFile}");
         throw;
       }
+    }
 
+    private dynamic DeserializeYamlFromText(string yamlText)
+    {
       try
       {
         var deserializer = new DeserializerBuilder().Build();
-        yaml = deserializer.Deserialize(new StringReader(yamlText));
+        return deserializer.Deserialize(new StringReader(yamlText));
       }
       catch
       {
-        Logger.Error(LogCategory.Plugin, $"[ValheimExportHelper] Failed to deserialize {ProjectSettingsFile}.");
+        LogError($"Failed to deserialize {ProjectSettingsFile}");
         throw;
       }
+    }
 
-      if (yaml == null) throw new NullReferenceException("Failed to modify ProjectSettings.asset");
-      return yaml;
+    private dynamic ReadSettings()
+    {
+      string yamlText = ReadYamlFileAsText(ProjectSettingsFile);
+      dynamic settings = DeserializeYamlFromText(yamlText);
+
+      if (settings == null) throw new NullReferenceException("Failed to modify ProjectSettings.asset");
+      return settings;
     }
 
     private void WriteSettings(dynamic settings)
