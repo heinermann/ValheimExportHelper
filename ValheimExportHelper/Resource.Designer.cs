@@ -143,5 +143,15 @@ namespace ValheimExportHelper {
                 return ResourceManager.GetString("ScuffedShaders", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Shaders {
+            get {
+                object obj = ResourceManager.GetObject("Shaders", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

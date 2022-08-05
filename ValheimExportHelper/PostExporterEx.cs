@@ -40,6 +40,12 @@ namespace ValheimExportHelper
       Logger.Error(LogCategory.Plugin, $"[{GetType().FullName}] {text}");
     }
 
+    public void TryDelete(string filename)
+    {
+      if (Directory.Exists(filename)) Directory.Delete(filename, true);
+      else if (File.Exists(filename)) File.Delete(filename);
+    }
+
     private bool IsValidYamlLine(string line)
     {
       return !line.StartsWith('%') && !line.StartsWith("---");
