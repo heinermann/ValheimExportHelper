@@ -1,10 +1,9 @@
-﻿using System.IO.Compression;
-
-namespace ValheimExportHelper
+﻿namespace ValheimExportHelper
 {
   class AddEditorAssets : PostExporterEx
   {
     private string ScriptsDir { get; set; }
+    private string EditorScriptsDir { get; set; }
 
     public override void Export()
     {
@@ -18,12 +17,16 @@ namespace ValheimExportHelper
     private void CreateScriptsDir()
     {
       ScriptsDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Scripts");
-      Directory.CreateDirectory(ScriptsDir);
+      EditorScriptsDir = Path.Join(ScriptsDir, "Editor");
+      Directory.CreateDirectory(EditorScriptsDir);
     }
 
     private void AddEditorScripts()
     {
-      File.WriteAllText(Path.Join(ScriptsDir, "Editor.cs"), Resource.Editor);
+      File.WriteAllText(Path.Join(EditorScriptsDir, "Editor.cs"), Resource.Editor);
+      File.WriteAllText(Path.Join(EditorScriptsDir, "CreateAssetBundles.cs"), Resource.AssetBundler);
+      File.WriteAllText(Path.Join(EditorScriptsDir, "RestoreShadersOnSceneLoad.cs"), Resource.ScuffedShaders);
+      File.WriteAllText(Path.Join(ScriptsDir, "UnzipExtension.cs"), Resource.UnzipExtension);
     }
 
     private void AddBlankScene()
