@@ -29,6 +29,12 @@
       <PackagePath>\</PackagePath>
     </None>
     <None Include="Resources\Editor.cs" />
+    <Compile Remove="Resources\RestoreShadersOnSceneLoad.cs" />
+    <None Include="Resources\RestoreShadersOnSceneLoad.cs" />
+    <Compile Remove="Resources\CreateAssetBundles.cs" />
+    <None Include="Resources\CreateAssetBundles.cs" />
+    <Compile Remove="Resources\UnzipExtension.cs" />
+    <None Include="Resources\UnzipExtension.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,15 +53,6 @@
     <Reference Include="AssetRipper.Library">
       <HintPath>..\..\Downloads\AssetRipper-0.2.2.0\Bins\AssetRipper\Release\AssetRipper.Library.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>..\..\..\..\..\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\Managed\UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>..\..\..\..\..\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 

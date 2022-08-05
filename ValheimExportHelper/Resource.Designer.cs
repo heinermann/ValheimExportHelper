@@ -144,20 +144,24 @@ namespace ValheimExportHelper {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using System.Collections.Generic;
+        ///   Looks up a localized string similar to using System;
+        ///using System.Collections.Generic;
         ///using System.IO;
         ///using UnityEngine;
         ///using System.IO.Compression;
+        ///using System.Linq;
         ///using UnityEditor;
         ///using UnityEditor.SceneManagement;
+        ///
         ///[InitializeOnLoad]
         ///public class RestoreShadersOnSceneLoad : MonoBehaviour
         ///{
-        ///    private static void RestoreOriginalShaders() {
-        ///        Directory.Delete(&quot;Assets/Shader&quot;, recursive: true);
-        ///        var zip = ZipStorer.Open(&quot;Assets/Shader_Original.zip&quot;, FileAccess.Read);
-        ///        List&lt;ZipStorer.ZipFileEntry&gt; dir = zip.ReadCentralDir();
-        ///        forea [rest of string was truncated]&quot;;.
+        ///    public static void RestoreOriginalShaders() {
+        ///        if (Directory.Exists(&quot;Assets/Shader&quot;))
+        ///        {
+        ///            if(Directory.EnumerateFiles(&quot;Assets/Shader&quot;).ToList().Count &gt;=1)
+        ///            {
+        ///                Directory.Delete(&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ScuffedShaders {
             get {
@@ -176,29 +180,26 @@ namespace ValheimExportHelper {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to // ZipStorer, by Jaime Olivares
-        /// // Website: zipstorer.codeplex.com
-        /// // Version: 2.35 (March 14, 2010)
+        ///   Looks up a localized string similar to #if UNITY_EDITOR
+        ///using System.IO;
+        ///using System.IO.Compression;
         ///
-        ///using System.Collections.Generic;
-        ///using System.Text;
-        ///
-        ///namespace System.IO.Compression
+        ///public static class UnzipExtension 
         ///{
-        ///    /// &lt;summary&gt;
-        ///    /// Unique class for compression/decompression file. Represents a Zip file.
-        ///    /// &lt;/summary&gt;
-        ///    public class ZipStorer : IDisposable
-        ///    {
-        ///        /// &lt;summary&gt;
-        ///        /// Compression method enumeration
-        ///        /// &lt;/summary&gt;
-        ///        public enum Compression : ushort { 
-        ///         [rest of string was truncated]&quot;;.
+        ///   public static void UnZipFile(string sourceArchive)
+        ///   {
+        ///      string tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+        ///
+        ///      Directory.CreateDirectory(tempDir);
+        ///      Directory.CreateDirectory(&quot;Assets/Shader&quot;);
+        ///      ZipFile.ExtractToDirectory(sourceArchive, tempDir );
+        ///      foreach (string filename in Directory.EnumerateFiles(tempDir))
+        ///      {
+        ///         File.Copy(filen [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string ZipStorer {
+        public static string UnzipExtension {
             get {
-                return ResourceManager.GetString("ZipStorer", resourceCulture);
+                return ResourceManager.GetString("UnzipExtension", resourceCulture);
             }
         }
     }
