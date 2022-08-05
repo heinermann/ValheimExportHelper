@@ -33,24 +33,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="YamlDotNet" Version="11.2.1" />
+    <PackageReference Include="YamlDotNet" Version="12.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="AssetRipper.Core">
+      <HintPath>..\..\Downloads\AssetRipper-0.2.2.0\Bins\AssetRipper\Release\AssetRipper.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="AssetRipper.Fundamentals">
-      <HintPath>..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipper.Fundamentals.dll</HintPath>
+      <HintPath>..\..\Downloads\AssetRipper-0.2.2.0\Bins\AssetRipper\Release\AssetRipper.Fundamentals.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="AssetRipperCommon">
-      <HintPath>..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperCommon.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AssetRipperCore">
-      <HintPath>..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperCore.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AssetRipperLibrary">
-      <HintPath>..\..\Downloads\AssetRipper-0.2.1.0\Bins\AssetRipperLibrary\ReleaseWindows\AssetRipperLibrary.dll</HintPath>
+    <Reference Include="AssetRipper.Library">
+      <HintPath>..\..\Downloads\AssetRipper-0.2.2.0\Bins\AssetRipper\Release\AssetRipper.Library.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

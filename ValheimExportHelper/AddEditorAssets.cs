@@ -8,9 +8,11 @@ namespace ValheimExportHelper
 
     public override void Export()
     {
+      LogInfo("Adding editor-only assets");
+
       CreateScriptsDir();
       AddEditorScripts();
-      ZipOriginalShaders();
+      AddBlankScene();
     }
 
     private void CreateScriptsDir()
@@ -21,17 +23,13 @@ namespace ValheimExportHelper
 
     private void AddEditorScripts()
     {
-      LogInfo("Adding editor-only scripts");
       File.WriteAllText(Path.Join(ScriptsDir, "Editor.cs"), Resource.Editor);
-      File.WriteAllText(Path.Join(ScriptsDir, "ScuffedShaders.cs"), Resource.ScuffedShaders);
     }
 
-    private void ZipOriginalShaders()
+    private void AddBlankScene()
     {
-      LogInfo("Zipping original shaders to prevent Unity corruption");
-      string shaderDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Shader");
-      string shaderArchiveName = Path.Join(CurrentRipper.Settings.AssetsPath, "Shader_Original.zip");
-      ZipFile.CreateFromDirectory(shaderDir, shaderArchiveName);
+      LogInfo("Creating blank scene");
+      File.WriteAllBytes(Path.Join(CurrentRipper.Settings.AssetsPath, "Scenes", "BlankScene.unity"), Resource.Blank);
     }
   }
 }

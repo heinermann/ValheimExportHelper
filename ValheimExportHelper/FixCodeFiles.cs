@@ -17,12 +17,6 @@ namespace ValheimExportHelper
       OneOffCodeFixes();
     }
 
-    private void TryDelete(string filename)
-    {
-      if (Directory.Exists(filename)) Directory.Delete(filename, true);
-      else if (File.Exists(filename)) File.Delete(filename);
-    }
-
     private void DeleteStandardLibraries()
     {
       LogInfo("Deleting standard libraries");

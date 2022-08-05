@@ -61,7 +61,18 @@ namespace ValheimExportHelper {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using UnityEngine;
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Blank {
+            get {
+                object obj = ResourceManager.GetObject("Blank", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #if UNITY_EDITOR
+        ///using UnityEngine;
         ///using UnityEngine.SceneManagement;
         ///using UnityEditor;
         ///using UnityEditor.SceneManagement;
@@ -81,7 +92,7 @@ namespace ValheimExportHelper {
         ///        break;
         ///      case &quot;start.unity&quot;:
         ///      default:
-        ///        WorldGenerator.Initialize [rest of string was truncated]&quot;;.
+        ///        WorldGe [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Editor {
             get {
@@ -110,7 +121,8 @@ namespace ValheimExportHelper {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using System.Collections;
+        ///   Looks up a localized string similar to #if UNITY_EDITOR
+        ///using System.Collections;
         ///using System.Collections.Generic;
         ///using System.IO;
         ///using System.IO.Compression;
@@ -124,11 +136,21 @@ namespace ValheimExportHelper {
         ///public class ScuffedShaders : MonoBehaviour
         ///{
         ///  static void RestoreOriginalShaders() {
-        ///    string tempDir = Path.Combine(Path.GetTempPath(), Pa [rest of string was truncated]&quot;;.
+        ///    string tempDir = Path.Combine(Path [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ScuffedShaders {
             get {
                 return ResourceManager.GetString("ScuffedShaders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Shaders {
+            get {
+                object obj = ResourceManager.GetObject("Shaders", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

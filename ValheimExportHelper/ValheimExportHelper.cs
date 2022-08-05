@@ -32,11 +32,14 @@ namespace ValheimExportHelper
 
       new List<IPostExporter>()
       {
-        new FixUnityProjectSettings(),
-        new AddPostProcessingPackage(),
         new AddEditorAssets(),
+        new AddPostProcessingPackage(),
         new FixCodeFiles(),
-        new FixSteam()
+        new FixCursor(),
+        new FixShaders(),
+        new FixSteam(),
+        new FixUnityProjectSettings(),
+        new FixWAVs()
       }.ForEach(CurrentRipper.AddPostExporter);
     }
 
