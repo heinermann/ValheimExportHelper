@@ -37,7 +37,8 @@ namespace ValheimExportHelper
         new AddEditorAssets(),
         new FixCodeFiles(),
         new FixSteam(),
-        new FixCursor()
+        new FixCursor(),
+        new FixWAVs()
       }.ForEach(CurrentRipper.AddPostExporter);
     }
 
