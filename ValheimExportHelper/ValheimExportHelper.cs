@@ -36,7 +36,8 @@ namespace ValheimExportHelper
         new AddPostProcessingPackage(),
         new AddEditorAssets(),
         new FixCodeFiles(),
-        new FixSteam()
+        new FixSteam(),
+        new FixCursor()
       }.ForEach(CurrentRipper.AddPostExporter);
     }
 

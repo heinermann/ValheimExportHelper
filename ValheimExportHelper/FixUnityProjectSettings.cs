@@ -48,45 +48,9 @@ namespace ValheimExportHelper
       };
     }
 
-    private bool IsValidYamlLine(string line)
-    {
-      return !line.StartsWith('%') && !line.StartsWith("---");
-    }
-
-    private string ReadYamlFileAsText(string fileName)
-    {
-      try
-      {
-        string[] yamlLines = File.ReadAllLines(fileName)
-          .Where(IsValidYamlLine)
-          .ToArray();
-        return String.Join('\n', yamlLines);
-      }
-      catch
-      {
-        LogError($"Failed to open {ProjectSettingsFile}");
-        throw;
-      }
-    }
-
-    private dynamic DeserializeYamlFromText(string yamlText)
-    {
-      try
-      {
-        var deserializer = new DeserializerBuilder().Build();
-        return deserializer.Deserialize(new StringReader(yamlText));
-      }
-      catch
-      {
-        LogError($"Failed to deserialize {ProjectSettingsFile}");
-        throw;
-      }
-    }
-
     private dynamic ReadSettings()
     {
-      string yamlText = ReadYamlFileAsText(ProjectSettingsFile);
-      dynamic settings = DeserializeYamlFromText(yamlText);
+      dynamic settings = ReadYamlFile(ProjectSettingsFile);
 
       if (settings == null) throw new NullReferenceException("Failed to modify ProjectSettings.asset");
       return settings;
