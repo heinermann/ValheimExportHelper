@@ -17,8 +17,9 @@
     private void CreateScriptsDir()
     {
       ScriptsDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Scripts");
-      EditorScriptsDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Scripts" + Path.DirectorySeparatorChar + "Editor");
+      EditorScriptsDir = Path.Join(ScriptsDir, "Editor");
       Directory.CreateDirectory(ScriptsDir);
+      Directory.CreateDirectory(EditorScriptsDir);
     }
 
     private void AddEditorScripts()
