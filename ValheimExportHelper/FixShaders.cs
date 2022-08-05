@@ -23,14 +23,15 @@ namespace ValheimExportHelper
 
     private void CreateScriptsDir()
     {
-      ScriptsDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Scripts");
+      ScriptsDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Editor");
       Directory.CreateDirectory(ScriptsDir);
     }
 
     private void AddEditorScript()
     {
       File.WriteAllText(Path.Join(ScriptsDir, "Editor.cs"), Resource.Editor);
-      File.WriteAllText(Path.Join(ScriptsDir, "ScuffedShaders.cs"), Resource.ScuffedShaders);
+      File.WriteAllText(Path.Join(ScriptsDir, "RestoreShadersOnSceneLoad.cs"), Resource.ScuffedShaders);
+      File.WriteAllText(Path.Join(ScriptsDir, "ZipStorer.cs"), Resource.ScuffedShaders);
     }
 
     private string GetOldShaderFilename(ZipArchiveEntry entry)
