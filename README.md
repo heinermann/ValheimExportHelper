@@ -11,5 +11,5 @@ When Valheim is loaded into AssetRipper, the console window should show the Valh
 ## Developing
 1. Get the target AssetRipper version's source code.
 2. Compile all of the AssetRipper modules.
-3. Add dependency references for `AssetRipper.Fundamentals`, `AssetRipperCommon`, `AssetRipperCore`, and `AssetRipperLibrary`.
+3. Add dependency references for `AssetRipper.Fundamentals`, `AssetRipper.Core`, and `AssetRipper.Library`.
 4. Compile.
