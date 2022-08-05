@@ -33,5 +33,11 @@ namespace ValheimExportHelper
       string shaderArchiveName = Path.Join(CurrentRipper.Settings.AssetsPath, "Shader_Original.zip");
       ZipFile.CreateFromDirectory(shaderDir, shaderArchiveName);
     }
+
+    private void AddBlankScene()
+    {
+      LogInfo("Creating blank scene");
+      File.WriteAllBytes(Path.Join(CurrentRipper.Settings.AssetsPath, "Scenes", "BlankScene.unity"), Resource.Blank);
+    }
   }
 }
