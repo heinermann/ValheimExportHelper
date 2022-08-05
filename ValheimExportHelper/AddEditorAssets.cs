@@ -11,6 +11,7 @@ namespace ValheimExportHelper
       CreateScriptsDir();
       AddEditorScripts();
       ZipOriginalShaders();
+      AddBlankScene();
     }
 
     private void CreateScriptsDir()
