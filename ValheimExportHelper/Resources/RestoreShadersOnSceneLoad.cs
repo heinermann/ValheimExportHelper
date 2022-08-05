@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO.Compression;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+
 [InitializeOnLoad]
 public class RestoreShadersOnSceneLoad : MonoBehaviour
 {

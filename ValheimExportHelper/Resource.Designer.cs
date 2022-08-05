@@ -60,6 +60,30 @@ namespace ValheimExportHelper {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to using UnityEditor;
+        ///using System.IO;
+        ///
+        ///public class CreateAssetBundles
+        ///{
+        ///    [MenuItem(&quot;Valheim/Build AssetBundles&quot;)]
+        ///    static void BuildAllAssetBundles()
+        ///    {
+        ///        string assetBundleDirectory = &quot;Assets/AssetBundles&quot;;
+        ///        if(!Directory.Exists(assetBundleDirectory))
+        ///        {
+        ///            Directory.CreateDirectory(assetBundleDirectory);
+        ///        }
+        ///        BuildPipeline.BuildAssetBundles(assetBundleDirectory, 
+        ///                                        BuildAssetBundleOptions.None, 
+        ///         [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string AssetBundler {
+            get {
+                return ResourceManager.GetString("AssetBundler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] Blank {
