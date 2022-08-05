@@ -29,7 +29,6 @@
       <PackagePath>\</PackagePath>
     </None>
     <None Include="Resources\Editor.cs" />
-    <None Include="Resources\ScuffedShaders.cs" />
   </ItemGroup>
 
   <ItemGroup>

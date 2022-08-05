@@ -31,7 +31,7 @@ namespace ValheimExportHelper
     {
       File.WriteAllText(Path.Join(ScriptsDir, "Editor.cs"), Resource.Editor);
       File.WriteAllText(Path.Join(ScriptsDir, "RestoreShadersOnSceneLoad.cs"), Resource.ScuffedShaders);
-      File.WriteAllText(Path.Join(ScriptsDir, "ZipStorer.cs"), Resource.ScuffedShaders);
+      File.WriteAllText(Path.Join(ScriptsDir, "ZipStorer.cs"), Resource.ZipStorer);
     }
 
     private string GetOldShaderFilename(ZipArchiveEntry entry)
