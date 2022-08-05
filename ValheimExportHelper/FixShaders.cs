@@ -4,15 +4,12 @@ namespace ValheimExportHelper
 {
   class FixShaders : PostExporterEx
   {
-    private string ScriptsDir { get; set; }
     private string ShaderDir { get; set; }
 
     public override void Export()
     {
       LogInfo("Fixing shaders");
 
-      CreateScriptsDir();
-      AddEditorScript();
 
       ShaderDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Shader");
 
@@ -20,20 +17,7 @@ namespace ValheimExportHelper
       ZipOriginalShaders();
       ExtractFreeShaders();
     }
-
-    private void CreateScriptsDir()
-    {
-      ScriptsDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Editor");
-      Directory.CreateDirectory(ScriptsDir);
-    }
-
-    private void AddEditorScript()
-    {
-      File.WriteAllText(Path.Join(ScriptsDir, "Editor.cs"), Resource.Editor);
-      File.WriteAllText(Path.Join(ScriptsDir, "RestoreShadersOnSceneLoad.cs"), Resource.ScuffedShaders);
-      File.WriteAllText(Path.Join(ScriptsDir, "ZipStorer.cs"), Resource.ZipStorer);
-      File.WriteAllText(Path.Join(ScriptsDir, "CreateAssetBundles.cs"), Resource.AssetBundler);
-    }
+    
 
     private string GetOldShaderFilename(ZipArchiveEntry entry)
     {
