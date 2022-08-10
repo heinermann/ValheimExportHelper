@@ -19,14 +19,14 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore -c Release
     - name: Test Build
       run: dotnet test --no-build --verbosity normal
     - name: Setup build artifacts
       run: |
         mkdir Artifacts
-        mv ValheimExportHelper/bin/Debug/net6.0/ValheimExportHelper.dll  Artifacts/ValheimExportHelper.dll
-        mv ValheimExportHelper/bin/Debug/net6.0/YamlDotNet.dll  Artifacts/YamlDotNet.dll 
+        mv ValheimExportHelper/bin/Release/net6.0/ValheimExportHelper.dll  Artifacts/ValheimExportHelper.dll
+        mv ValheimExportHelper/bin/Release/net6.0/YamlDotNet.dll  Artifacts/YamlDotNet.dll 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
@@ -43,8 +43,8 @@ jobs:
     - name: Commit Version
       uses: EndBug/add-and-commit@v7
       with:
-        author_name: "Bryan Smith"
-        author_email: "sbtoonz@gmail.com"
+        author_name: "Github Action"
+        author_email: "Git@github.com"
         message: "Update Version"
         add: "VERSION"
         
