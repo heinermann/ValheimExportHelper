@@ -39,17 +39,7 @@ jobs:
       run: |
         cat ValheimExportHelper/ValheimExportHelper.csproj | grep '<Version>' > tmp.txt
         sed 's|[<Version>,]||g' tmp.txt | sed 's|[/,]||g' > VERSION
-      
-    - name: Commit Version
-      uses: EndBug/add-and-commit@v7
-      with:
-        author_name: "Github Action"
-        author_email: "Git@github.com"
-        message: "Update Version"
-        add: "VERSION"
-        
-    - name: Extract Version
-      uses: avakar/derive-version@v1
+        echo "::set-output name=version::$(cat VERSION)"
       id: version
       
     - name: Create Release
