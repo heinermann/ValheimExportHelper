@@ -5,39 +5,21 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValheimExportHelper", "ValheimExportHelper\ValheimExportHelper.csproj", "{B007D18E-3042-4E49-90EE-3E822FC319A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.Assets", "AssetRipper\AssetRipper.Assets\AssetRipper.Assets.csproj", "{1824D7BD-71A5-413B-BAB8-87432971ADC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetRipper.Core", "AssetRipper\AssetRipper.Core\AssetRipper.Core.csproj", "{F84F244D-A88B-4AB5-92CF-BFF44552F36E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.Core", "AssetRipper\AssetRipper.Core\AssetRipper.Core.csproj", "{F84F244D-A88B-4AB5-92CF-BFF44552F36E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetRipper.Fundamentals", "AssetRipper\AssetRipper.Fundamentals\AssetRipper.Fundamentals.csproj", "{3F48E6AF-AC8E-4713-A162-BFC27015282C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.FileAnalyzer", "AssetRipper\AssetRipper.FileAnalyzer\AssetRipper.FileAnalyzer.csproj", "{95665481-7DF4-42F0-A61A-ADC1AD41B57E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetRipper.IO.Endian", "AssetRipper\AssetRipper.IO.Endian\AssetRipper.IO.Endian.csproj", "{632D7950-9898-4C3F-B348-9D70CF4BA50B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.Fundamentals", "AssetRipper\AssetRipper.Fundamentals\AssetRipper.Fundamentals.csproj", "{3F48E6AF-AC8E-4713-A162-BFC27015282C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetRipper.Library", "AssetRipper\AssetRipper.Library\AssetRipper.Library.csproj", "{A78C8068-8C75-49C2-8C44-739CE1818D2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.GUI", "AssetRipper\AssetRipper.GUI\AssetRipper.GUI.csproj", "{E90F1DEF-E98B-4718-B3E0-BC3A3A39B2A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetRipper.Yaml", "AssetRipper\AssetRipper.Yaml\AssetRipper.Yaml.csproj", "{41E5D539-F5F1-41F4-8A51-E03F166EF992}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.GUI.SourceGenerator", "AssetRipper\AssetRipper.GUI.SourceGenerator\AssetRipper.GUI.SourceGenerator.csproj", "{D22FE7B2-DEB8-4C8B-B2C0-AF2FEFFC7540}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaderTextRestorer", "AssetRipper\ShaderTextRestorer\ShaderTextRestorer.csproj", "{60AF0FB8-BE77-4854-8DE4-064CE35493C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.IO.Endian", "AssetRipper\AssetRipper.IO.Endian\AssetRipper.IO.Endian.csproj", "{632D7950-9898-4C3F-B348-9D70CF4BA50B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smolv", "AssetRipper\Smolv\Smolv.csproj", "{6F73711E-86B3-422A-AE36-F37CBB43070B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.IO.Files", "AssetRipper\AssetRipper.IO.Files\AssetRipper.IO.Files.csproj", "{20090F3F-02C1-405A-A7B2-2C69079032FC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.Library", "AssetRipper\AssetRipper.Library\AssetRipper.Library.csproj", "{A78C8068-8C75-49C2-8C44-739CE1818D2A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.SerializationLogic", "AssetRipper\AssetRipper.SerializationLogic\AssetRipper.SerializationLogic.csproj", "{E51D21DE-3E66-434D-B839-D8509520DAE7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.SystemTester", "AssetRipper\AssetRipper.SystemTester\AssetRipper.SystemTester.csproj", "{DFAB77A7-53A1-4224-B6CE-081AAAEC43CB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.Tests", "AssetRipper\AssetRipper.Tests\AssetRipper.Tests.csproj", "{92102C51-C594-4109-A17E-8EED041A54DF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.Yaml", "AssetRipper\AssetRipper.Yaml\AssetRipper.Yaml.csproj", "{41E5D539-F5F1-41F4-8A51-E03F166EF992}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetRipper.Yaml.Tests", "AssetRipper\AssetRipper.Yaml.Tests\AssetRipper.Yaml.Tests.csproj", "{C60FCD69-E486-4964-9D4C-65DE653C230C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaderTextRestorer", "AssetRipper\ShaderTextRestorer\ShaderTextRestorer.csproj", "{60AF0FB8-BE77-4854-8DE4-064CE35493C1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smolv", "AssetRipper\Smolv\Smolv.csproj", "{6F73711E-86B3-422A-AE36-F37CBB43070B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpirV", "AssetRipper\SpirV\SpirV.csproj", "{8FE893AA-D200-4751-8651-10389735EA2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpirV", "AssetRipper\SpirV\SpirV.csproj", "{8FE893AA-D200-4751-8651-10389735EA2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,54 +31,26 @@ Global
 		{B007D18E-3042-4E49-90EE-3E822FC319A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B007D18E-3042-4E49-90EE-3E822FC319A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B007D18E-3042-4E49-90EE-3E822FC319A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1824D7BD-71A5-413B-BAB8-87432971ADC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1824D7BD-71A5-413B-BAB8-87432971ADC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1824D7BD-71A5-413B-BAB8-87432971ADC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F84F244D-A88B-4AB5-92CF-BFF44552F36E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F84F244D-A88B-4AB5-92CF-BFF44552F36E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F84F244D-A88B-4AB5-92CF-BFF44552F36E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F84F244D-A88B-4AB5-92CF-BFF44552F36E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95665481-7DF4-42F0-A61A-ADC1AD41B57E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95665481-7DF4-42F0-A61A-ADC1AD41B57E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95665481-7DF4-42F0-A61A-ADC1AD41B57E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F48E6AF-AC8E-4713-A162-BFC27015282C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3F48E6AF-AC8E-4713-A162-BFC27015282C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F48E6AF-AC8E-4713-A162-BFC27015282C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F48E6AF-AC8E-4713-A162-BFC27015282C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E90F1DEF-E98B-4718-B3E0-BC3A3A39B2A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E90F1DEF-E98B-4718-B3E0-BC3A3A39B2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E90F1DEF-E98B-4718-B3E0-BC3A3A39B2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D22FE7B2-DEB8-4C8B-B2C0-AF2FEFFC7540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D22FE7B2-DEB8-4C8B-B2C0-AF2FEFFC7540}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D22FE7B2-DEB8-4C8B-B2C0-AF2FEFFC7540}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{632D7950-9898-4C3F-B348-9D70CF4BA50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{632D7950-9898-4C3F-B348-9D70CF4BA50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{632D7950-9898-4C3F-B348-9D70CF4BA50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{632D7950-9898-4C3F-B348-9D70CF4BA50B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{20090F3F-02C1-405A-A7B2-2C69079032FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20090F3F-02C1-405A-A7B2-2C69079032FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20090F3F-02C1-405A-A7B2-2C69079032FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20090F3F-02C1-405A-A7B2-2C69079032FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A78C8068-8C75-49C2-8C44-739CE1818D2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A78C8068-8C75-49C2-8C44-739CE1818D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A78C8068-8C75-49C2-8C44-739CE1818D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A78C8068-8C75-49C2-8C44-739CE1818D2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E51D21DE-3E66-434D-B839-D8509520DAE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E51D21DE-3E66-434D-B839-D8509520DAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E51D21DE-3E66-434D-B839-D8509520DAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DFAB77A7-53A1-4224-B6CE-081AAAEC43CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DFAB77A7-53A1-4224-B6CE-081AAAEC43CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFAB77A7-53A1-4224-B6CE-081AAAEC43CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92102C51-C594-4109-A17E-8EED041A54DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92102C51-C594-4109-A17E-8EED041A54DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92102C51-C594-4109-A17E-8EED041A54DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41E5D539-F5F1-41F4-8A51-E03F166EF992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{41E5D539-F5F1-41F4-8A51-E03F166EF992}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41E5D539-F5F1-41F4-8A51-E03F166EF992}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41E5D539-F5F1-41F4-8A51-E03F166EF992}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C60FCD69-E486-4964-9D4C-65DE653C230C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C60FCD69-E486-4964-9D4C-65DE653C230C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C60FCD69-E486-4964-9D4C-65DE653C230C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60AF0FB8-BE77-4854-8DE4-064CE35493C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{60AF0FB8-BE77-4854-8DE4-064CE35493C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60AF0FB8-BE77-4854-8DE4-064CE35493C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
