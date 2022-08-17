@@ -26,7 +26,6 @@ jobs:
       run: |
         mkdir Artifacts
         mv ValheimExportHelper/bin/Release/net6.0/ValheimExportHelper.dll  Artifacts/ValheimExportHelper.dll
-        mv ValheimExportHelper/bin/Release/net6.0/YamlDotNet.dll  Artifacts/YamlDotNet.dll 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
@@ -37,10 +36,15 @@ jobs:
     
     - name: Grab Version
       run: |
-        cat ValheimExportHelper/ValheimExportHelper.csproj | grep '<Version>' > tmp.txt
-        sed 's|[<Version>,]||g' tmp.txt | sed 's|[/,]||g' > VERSION
-        echo "::set-output name=version::$(cat VERSION)"
+        VERSION=$(sed -n "s/.*<Version>\(.*\)<\/Version>/\1/p" ValheimExportHelper/ValheimExportHelper.csproj)
+        echo "::set-output name=version::$VERSION"
       id: version
+
+    - name: Create Release Zip
+      uses: vimtor/action-zip@v1
+      with:
+        files: ValheimExportHelper/bin/Release/net6.0/
+        dest: ValheimExportHelper.zip
       
     - name: Create Release
       uses: softprops/action-gh-release@v1
@@ -51,8 +55,6 @@ jobs:
         name: ${{steps.version.outputs.version}}
         tag_name: ${{steps.version.outputs.version}}
         body_path: CHANGELOG.md
-        files: |
-          Artifacts/ValheimExportHelper.dll
-          Artifacts/YamlDotNet.dll
+        files: ValheimExportHelper.zip
       env:
         GITHUB_TOKEN: ${{secrets.PATOKEN}}

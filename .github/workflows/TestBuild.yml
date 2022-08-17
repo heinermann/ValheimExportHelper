@@ -30,7 +30,6 @@ jobs:
       run: |
         mkdir Artifacts
         mv ValheimExportHelper/bin/Debug/net6.0/ValheimExportHelper.dll  Artifacts/ValheimExportHelper.dll
-        mv ValheimExportHelper/bin/Debug/net6.0/YamlDotNet.dll  Artifacts/YamlDotNet.dll
        
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0

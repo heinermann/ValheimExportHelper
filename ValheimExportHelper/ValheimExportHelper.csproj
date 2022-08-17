@@ -61,9 +61,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AssetRipper\AssetRipper.Core\AssetRipper.Core.csproj" />
-    <ProjectReference Include="..\AssetRipper\AssetRipper.Fundamentals\AssetRipper.Fundamentals.csproj" />
-    <ProjectReference Include="..\AssetRipper\AssetRipper.Library\AssetRipper.Library.csproj" />
+    <ProjectReference Include="..\AssetRipper\AssetRipper.Core\AssetRipper.Core.csproj">
+      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <IncludeAssets>none</IncludeAssets>
+      <ExcludeAssets>all</ExcludeAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\AssetRipper\AssetRipper.Fundamentals\AssetRipper.Fundamentals.csproj">
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>False</Private>
+      <IncludeAssets>none</IncludeAssets>
+      <ExcludeAssets>all</ExcludeAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\AssetRipper\AssetRipper.Library\AssetRipper.Library.csproj">
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>False</Private>
+      <IncludeAssets>none</IncludeAssets>
+      <ExcludeAssets>all</ExcludeAssets>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
