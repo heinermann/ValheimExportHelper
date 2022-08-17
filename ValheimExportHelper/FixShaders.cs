@@ -29,7 +29,12 @@ namespace ValheimExportHelper
     {
       using (var zip = new ZipArchive(new MemoryStream(Resource.Shaders)))
       {
-        zip.Entries.Select(GetOldShaderFilename).ToList().ForEach(TryDelete);
+        List<string> replacedShaders = zip.Entries.Select(GetOldShaderFilename).ToList();
+        foreach (string shader in replacedShaders)
+        {
+          TryDelete(shader);
+          TryDelete($"{shader}.meta");
+        }
       }
     }
 
