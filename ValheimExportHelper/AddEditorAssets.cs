@@ -23,10 +23,10 @@
 
     private void AddEditorScripts()
     {
+      File.WriteAllBytes(Path.Join(CurrentRipper.Settings.AssetsPath, "csc.rsp"), Resource.csc);
       File.WriteAllText(Path.Join(EditorScriptsDir, "Editor.cs"), Resource.Editor);
       File.WriteAllText(Path.Join(EditorScriptsDir, "CreateAssetBundles.cs"), Resource.AssetBundler);
       File.WriteAllText(Path.Join(EditorScriptsDir, "RestoreShadersOnSceneLoad.cs"), Resource.ScuffedShaders);
-      File.WriteAllText(Path.Join(ScriptsDir, "UnzipExtension.cs"), Resource.UnzipExtension);
     }
 
     private void AddBlankScene()

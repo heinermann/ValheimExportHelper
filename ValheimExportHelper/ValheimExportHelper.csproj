@@ -37,8 +37,6 @@
     <None Include="Resources\RestoreShadersOnSceneLoad.cs" />
     <Compile Remove="Resources\CreateAssetBundles.cs" />
     <None Include="Resources\CreateAssetBundles.cs" />
-    <Compile Remove="Resources\UnzipExtension.cs" />
-    <None Include="Resources\UnzipExtension.cs" />
   </ItemGroup>
 
   <ItemGroup>
