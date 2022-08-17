@@ -36,7 +36,7 @@ jobs:
     
     - name: Grab Version
       run: |
-        VERSION=$(sed -n "s/.*<Version>\(.*\)<\/Version>/\1/p" ValheimExportHelper/ValheimExportHelper.csproj)
+        VERSION=$(sed -nr "s|.*<Version>(.*)</Version>|\1|p" ValheimExportHelper/ValheimExportHelper.csproj)
         echo "::set-output name=version::$VERSION"
       id: version
 
