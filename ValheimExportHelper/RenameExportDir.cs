@@ -13,7 +13,6 @@ namespace ValheimExportHelper
 
       //Directory.CreateSymbolicLink(targetDirPath, CurrentRipper.Settings.ProjectRootPath); // wtf? not working
 
-      var unityVersion = CurrentRipper.GameStructure.PlatformStructure.UnityVersion;
       File.WriteAllText(Path.Join(CurrentRipper.Settings.ProjectSettingsPath, "ProjectVersion.txt"), "m_EditorVersion: 2020.3.33f1");
       Directory.Move(CurrentRipper.Settings.ProjectRootPath, targetDirPath);
     }
