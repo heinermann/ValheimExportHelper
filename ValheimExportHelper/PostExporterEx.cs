@@ -6,7 +6,6 @@ namespace ValheimExportHelper
   internal abstract class PostExporterEx : LoggingTrait, IPostExporter
   {
     public Ripper CurrentRipper { get; set; }
-    private bool notified = false;
 
     public void Init(Ripper ripper)
     {
@@ -17,11 +16,6 @@ namespace ValheimExportHelper
     {
       Init(ripper);
       Export();
-      if (!notified)
-      {
-        notified = true;
-        LogInfo($"Ran PostExporter module {GetType().Name}");
-      }
     }
 
     public abstract void Export();
