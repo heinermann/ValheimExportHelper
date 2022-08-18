@@ -7,10 +7,15 @@
       LogInfo("Fixing cursor texture type");
 
       string cursorMetaFile = Path.Join(CurrentRipper.Settings.AssetsPath, "Texture2D", "cursor.png.meta");
-      
-      dynamic yaml = ReadYamlFile(cursorMetaFile);
-      yaml["TextureImporter"]["textureType"] = "7";
-      WriteYamlFile(cursorMetaFile, yaml);
+
+      FixCursorMetadata(cursorMetaFile);
+    }
+
+    private void FixCursorMetadata(string filename)
+    {
+      UnityYaml yaml = UnityYaml.LoadYaml(filename);
+      yaml.data["TextureImporter"]["textureType"] = "7";
+      yaml.Save();
     }
   }
 }

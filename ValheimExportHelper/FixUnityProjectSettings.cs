@@ -1,13 +1,7 @@
-﻿using YamlDotNet.Serialization;
-
-namespace ValheimExportHelper
+﻿namespace ValheimExportHelper
 {
   class FixUnityProjectSettings : PostExporterEx
   {
-    const string UnityHeader = @"%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!129 &1";
-
     private string ProjectSettingsFile { get; set; } = string.Empty;
     private string ProjectPackagePath { get; set; } = string.Empty;
 
@@ -18,10 +12,8 @@ namespace ValheimExportHelper
       ProjectSettingsFile = Path.Join(CurrentRipper.Settings.ProjectSettingsPath, "ProjectSettings.asset");
       ProjectPackagePath = Path.Join(CurrentRipper.Settings.ProjectRootPath, "Packages");
 
-      dynamic settings = ReadSettings();
-      ApplySettingsChanges(settings);
-      WriteSettings(settings);
-      
+      ModifySettings();
+
       GeneratePackageList();
     }
 
@@ -48,20 +40,11 @@ namespace ValheimExportHelper
       };
     }
 
-    private dynamic ReadSettings()
+    private void ModifySettings()
     {
-      dynamic settings = ReadYamlFile(ProjectSettingsFile);
-
-      if (settings == null) throw new NullReferenceException("Failed to modify ProjectSettings.asset");
-      return settings;
-    }
-
-    private void WriteSettings(dynamic settings)
-    {
-      var serializer = new SerializerBuilder().Build();
-      string result = serializer.Serialize(settings);
-
-      File.WriteAllText(ProjectSettingsFile, $"{UnityHeader}\n{result}");
+      UnityYaml yaml = UnityYaml.LoadYaml(ProjectSettingsFile);
+      ApplySettingsChanges(yaml.data);
+      yaml.Save();
     }
   }
 }
