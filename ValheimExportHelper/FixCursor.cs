@@ -14,7 +14,7 @@
     private void FixCursorMetadata(string filename)
     {
       UnityYaml yaml = UnityYaml.LoadYaml(filename);
-      yaml.data["TextureImporter"]["textureType"] = "7";
+      yaml.Data["TextureImporter"]["textureType"] = "7";
       yaml.Save();
     }
   }

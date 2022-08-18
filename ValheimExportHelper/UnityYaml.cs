@@ -4,26 +4,26 @@ namespace ValheimExportHelper
 {
   public class UnityYaml : LoggingTrait
   {
-    public string header = "";
-    public dynamic data = null;
+    public string Header { get; private set; } = "";
+    public dynamic Data { get; private set; }
+    public string Filename { get; private set; }
 
-    public string filename = null;
 
     private UnityYaml(string filename)
     {
-      this.filename = filename;
+      this.Filename = filename;
     }
 
     public void Load()
     {
       try
       {
-        string[] yamlLines = File.ReadAllLines(filename);
+        string[] yamlLines = File.ReadAllLines(Filename);
         ParseLines(yamlLines);
       }
       catch
       {
-        LogError($"Failed to open {filename}");
+        LogError($"Failed to open {Filename}");
         throw;
       }
     }
@@ -31,9 +31,9 @@ namespace ValheimExportHelper
     public void Save()
     {
       var serializer = new SerializerBuilder().Build();
-      string result = serializer.Serialize(data);
+      string result = serializer.Serialize(Data);
 
-      File.WriteAllText(filename, $"{header}\n{result}");
+      File.WriteAllText(Filename, $"{Header}\n{result}");
     }
 
     private bool IsValidYamlLine(string line)
@@ -57,10 +57,10 @@ namespace ValheimExportHelper
 
     private void ParseLines(string[] yamlLines)
     {
-      this.header = String.Join('\n', yamlLines.TakeWhile(s => !IsValidYamlLine(s)));
+      this.Header = String.Join('\n', yamlLines.TakeWhile(s => !IsValidYamlLine(s)));
 
       string content = String.Join('\n', yamlLines.Where(IsValidYamlLine));
-      this.data = DeserializeYamlFromText(content);
+      this.Data = DeserializeYamlFromText(content);
     }
 
     public static UnityYaml LoadYaml(string filename)

@@ -2,17 +2,16 @@
 {
   class FixUnityProjectSettings : PostExporterEx
   {
-    private string ProjectSettingsFile { get; set; } = string.Empty;
     private string ProjectPackagePath { get; set; } = string.Empty;
 
     public override void Export()
     {
       LogInfo("Fixing Unity project settings");
 
-      ProjectSettingsFile = Path.Join(CurrentRipper.Settings.ProjectSettingsPath, "ProjectSettings.asset");
       ProjectPackagePath = Path.Join(CurrentRipper.Settings.ProjectRootPath, "Packages");
 
-      ModifySettings();
+      AddVulkanSupport();
+      DisableMotionBlur();
 
       GeneratePackageList();
     }
@@ -40,11 +39,21 @@
       };
     }
 
-    private void ModifySettings()
+    private void AddVulkanSupport()
     {
-      UnityYaml yaml = UnityYaml.LoadYaml(ProjectSettingsFile);
-      ApplySettingsChanges(yaml.data);
+      string filename = Path.Join(CurrentRipper.Settings.ProjectSettingsPath, "ProjectSettings.asset");
+      UnityYaml yaml = UnityYaml.LoadYaml(filename);
+      ApplySettingsChanges(yaml.Data);
       yaml.Save();
     }
+
+    private void DisableMotionBlur()
+    {
+      string filename = Path.Join(CurrentRipper.Settings.AssetsPath, "MonoBehaviour", "ingame.asset");
+      UnityYaml yaml = UnityYaml.LoadYaml(filename);
+      yaml.Data["MonoBehaviour"]["motionBlur"]["m_Enabled"] = "0";
+      yaml.Save();
+    }
+
   }
 }
