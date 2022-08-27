@@ -15,12 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\AvoidSavingYamlShaders.cs" />
     <Compile Remove="Resources\Editor.cs" />
     <Compile Remove="Resources\ScuffedShaders.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Editor.cs" />
+    <Compile Remove="Resources\WorldGeneratorFix.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,11 +30,11 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="Resources\Editor.cs" />
     <Compile Remove="Resources\RestoreShadersOnSceneLoad.cs" />
-    <None Include="Resources\RestoreShadersOnSceneLoad.cs" />
     <Compile Remove="Resources\CreateAssetBundles.cs" />
+    <None Include="Resources\AvoidSavingYamlShaders.cs" />
     <None Include="Resources\CreateAssetBundles.cs" />
+    <None Include="Resources\WorldGeneratorFix.cs" />
   </ItemGroup>
 
   <ItemGroup>

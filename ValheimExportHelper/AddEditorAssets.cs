@@ -2,7 +2,6 @@
 {
   class AddEditorAssets : PostExporterEx
   {
-    private string ScriptsDir { get; set; }
     private string EditorScriptsDir { get; set; }
 
     public override void Export()
@@ -16,17 +15,15 @@
 
     private void CreateScriptsDir()
     {
-      ScriptsDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Scripts");
-      EditorScriptsDir = Path.Join(ScriptsDir, "Editor");
+      EditorScriptsDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Editor", "ValheimExportHelper");
       Directory.CreateDirectory(EditorScriptsDir);
     }
 
     private void AddEditorScripts()
     {
-      File.WriteAllBytes(Path.Join(CurrentRipper.Settings.AssetsPath, "csc.rsp"), Resource.csc);
-      File.WriteAllText(Path.Join(EditorScriptsDir, "Editor.cs"), Resource.Editor);
+      File.WriteAllText(Path.Join(EditorScriptsDir, "WorldGeneratorFix.cs"), Resource.WorldGeneratorFix);
       File.WriteAllText(Path.Join(EditorScriptsDir, "CreateAssetBundles.cs"), Resource.AssetBundler);
-      File.WriteAllText(Path.Join(EditorScriptsDir, "RestoreShadersOnSceneLoad.cs"), Resource.ScuffedShaders);
+      File.WriteAllText(Path.Join(EditorScriptsDir, "AvoidSavingYamlShaders.cs"), Resource.AvoidSavingYamlShaders);
     }
 
     private void AddBlankScene()

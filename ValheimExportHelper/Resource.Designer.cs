@@ -84,52 +84,39 @@ namespace ValheimExportHelper {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /**
+        /// * IMPORTANT: Remove this when it gets added to AssetRipper.
+        /// * Sourced from AssetRipper Discord, © trouger
+        ///*/
+        ///using System.Collections.Generic;
+        ///using UnityEditor;
+        ///using UnityEngine;
+        ///
+        ///class AvoidSavingYamlShaders : UnityEditor.AssetModificationProcessor
+        ///{
+        ///    private static List&lt;string&gt; s_PathList = new List&lt;string&gt;();
+        ///    
+        ///    private static string[] OnWillSaveAssets(string[] paths)
+        ///    {
+        ///        s_PathList.Clear();
+        ///        
+        ///        foreach (string path in paths)
+        ///        {
+        ///            [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string AvoidSavingYamlShaders {
+            get {
+                return ResourceManager.GetString("AvoidSavingYamlShaders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] Blank {
             get {
                 object obj = ResourceManager.GetObject("Blank", resourceCulture);
                 return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] csc {
-            get {
-                object obj = ResourceManager.GetObject("csc", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to #if UNITY_EDITOR
-        ///using UnityEngine;
-        ///using UnityEngine.SceneManagement;
-        ///using UnityEditor;
-        ///using UnityEditor.SceneManagement;
-        ///using System.IO;
-        ///using System;
-        ///
-        ///[InitializeOnLoad]
-        ///public class Editor : MonoBehaviour
-        ///{
-        ///  static void OnSceneLoad(string path)
-        ///  {
-        ///    Debug.Log($&quot;Opening scene {path}&quot;);
-        ///    switch (Path.GetFileName(path))
-        ///    {
-        ///      case &quot;main.unity&quot;:
-        ///        WorldGenerator.Initialize(World.GetDevWorld());
-        ///        break;
-        ///      case &quot;start.unity&quot;:
-        ///      default:
-        ///        WorldGe [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Editor {
-            get {
-                return ResourceManager.GetString("Editor", resourceCulture);
             }
         }
         
@@ -154,37 +141,31 @@ namespace ValheimExportHelper {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using System.IO;
-        ///using UnityEngine;
-        ///using System.IO.Compression;
+        ///   Looks up a localized string similar to using UnityEngine;
+        ///using UnityEngine.SceneManagement;
         ///using UnityEditor;
         ///using UnityEditor.SceneManagement;
+        ///using System.IO;
+        ///using System;
         ///
         ///[InitializeOnLoad]
-        ///public class RestoreShadersOnSceneLoad : MonoBehaviour
+        ///public class Editor : MonoBehaviour
         ///{
-        ///  private static void UnzipFile(string sourceArchive, string targetPath)
+        ///  static void OnSceneLoad(string path)
         ///  {
-        ///    string tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-        ///
-        ///    Directory.CreateDirectory(tempDir);
-        ///    Directory.CreateDirectory(targetPath);
-        ///    ZipFile.ExtractToDirectory(sourceArchive, tempDir);
-        ///   [rest of string was truncated]&quot;;.
+        ///    Debug.Log($&quot;Opening scene {path}&quot;);
+        ///    switch (Path.GetFileName(path))
+        ///    {
+        ///      case &quot;main.unity&quot;:
+        ///        WorldGenerator.Initialize(World.GetDevWorld());
+        ///        break;
+        ///      case &quot;start.unity&quot;:
+        ///      default:
+        ///        WorldGenerator.Initialize [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string ScuffedShaders {
+        public static string WorldGeneratorFix {
             get {
-                return ResourceManager.GetString("ScuffedShaders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] Shaders {
-            get {
-                object obj = ResourceManager.GetObject("Shaders", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("WorldGeneratorFix", resourceCulture);
             }
         }
     }

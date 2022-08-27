@@ -121,25 +121,19 @@
   <data name="Blank" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Blank.unity;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Editor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Editor.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="manifest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\manifest.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="PostProcessing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\PostProcessing.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ScuffedShaders" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\RestoreShadersOnSceneLoad.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="AssetBundler" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\CreateAssetBundles.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="Shaders" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Shaders.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="AvoidSavingYamlShaders" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\AvoidSavingYamlShaders.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="csc" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\csc.rsp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="WorldGeneratorFix" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\WorldGeneratorFix.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

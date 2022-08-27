@@ -41,7 +41,6 @@ namespace ValheimExportHelper
         new AddPostProcessingPackage(),
         new FixCodeFiles(),
         new FixCursor(),
-        new FixShaders(),
         new FixSteam(),
         new FixUnityProjectSettings(),
         new FixWAVs(),
