@@ -30,6 +30,11 @@ namespace ValheimExportHelper
       Logger.Info("[ValheimExportHelper] Detected as Valheim");
       Logger.Info(ValheimAsciiLogo);
 
+      CurrentRipper.OnFinishExporting += OnFinishExporting;
+    }
+
+    private void OnFinishExporting()
+    {
       new List<IPostExporter>()
       {
         new AddEditorAssets(),
