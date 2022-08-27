@@ -141,6 +141,16 @@ namespace ValheimExportHelper {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ShadersReadme {
+            get {
+                object obj = ResourceManager.GetObject("ShadersReadme", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to using UnityEngine;
         ///using UnityEngine.SceneManagement;
         ///using UnityEditor;

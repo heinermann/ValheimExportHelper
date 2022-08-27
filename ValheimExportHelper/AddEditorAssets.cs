@@ -11,6 +11,7 @@
       CreateScriptsDir();
       AddEditorScripts();
       AddBlankScene();
+      AddShaderNotes();
     }
 
     private void CreateScriptsDir()
@@ -30,6 +31,11 @@
     {
       LogInfo("Creating blank scene");
       File.WriteAllBytes(Path.Join(CurrentRipper.Settings.AssetsPath, "Scenes", "BlankScene.unity"), Resource.Blank);
+    }
+
+    private void AddShaderNotes()
+    {
+      File.WriteAllBytes(Path.Join(CurrentRipper.Settings.AssetsPath, "Shader", "README.md"), Resource.ShadersReadme);
     }
   }
 }
