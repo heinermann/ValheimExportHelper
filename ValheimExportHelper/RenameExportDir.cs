@@ -2,6 +2,9 @@
 
 namespace ValheimExportHelper
 {
+  /**
+   * Notes: Originally supposed to create a symbolic link, but Windows does not give users symlink permissions by default (citing "security risks").
+   */
   class RenameExportDir : PostExporterEx
   {
     public override void Export()
@@ -11,9 +14,6 @@ namespace ValheimExportHelper
       string projectName = $"Valheim {GetVersionString()} - {DateTime.Now:yyyy-MM-dd}";
       string targetDirPath = Path.Join(CurrentRipper.Settings.ExportRootPath, projectName);
 
-      //Directory.CreateSymbolicLink(targetDirPath, CurrentRipper.Settings.ProjectRootPath); // wtf? not working
-
-      File.WriteAllText(Path.Join(CurrentRipper.Settings.ProjectSettingsPath, "ProjectVersion.txt"), "m_EditorVersion: 2020.3.33f1");
       Directory.Move(CurrentRipper.Settings.ProjectRootPath, targetDirPath);
     }
 

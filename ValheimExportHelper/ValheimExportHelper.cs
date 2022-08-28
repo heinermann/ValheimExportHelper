@@ -44,7 +44,7 @@ namespace ValheimExportHelper
         new FixSteam(),
         new FixUnityProjectSettings(),
         new FixWAVs(),
-        //new RenameExportDir() // THIS MUST BE LAST
+        new RenameExportDir() // THIS MUST BE LAST
       }.ForEach(CurrentRipper.AddPostExporter);
     }
 
