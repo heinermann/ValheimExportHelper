@@ -43,7 +43,7 @@ jobs:
     - name: Create Release Zip
       uses: vimtor/action-zip@v1
       with:
-        files: ValheimExportHelper/bin/Release/net6.0/
+        files: Artifacts/
         dest: ValheimExportHelper.zip
       
     - name: Create Release
