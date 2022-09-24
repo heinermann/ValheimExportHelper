@@ -8,7 +8,7 @@ namespace ValheimExportHelper
 
     public override void Export()
     {
-      MonoScriptDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Plugins");
+      MonoScriptDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Scripts");
       
       DeleteStandardLibraries();
       
