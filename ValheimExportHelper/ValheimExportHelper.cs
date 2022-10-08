@@ -1,6 +1,7 @@
 ﻿using AssetRipper.Core.Logging;
 using AssetRipper.Library;
 using AssetRipper.Library.Exporters;
+using System.Reflection;
 
 namespace ValheimExportHelper
 {
@@ -12,11 +13,23 @@ namespace ValheimExportHelper
     {
       Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] Initializing... Waiting to detect game.");
       CurrentRipper.OnFinishLoadingGameStructure += OnFinishLoadingGameStructure;
+
+      AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolve);
+      Assembly.Load("YamlDotNet");
     }
 
     private bool IsValheim()
     {
       return CurrentRipper.GameStructure.Name != null && CurrentRipper.GameStructure.Name.Contains("valheim", StringComparison.InvariantCultureIgnoreCase);
+    }
+
+    private static Assembly AssemblyResolve(object sender, ResolveEventArgs args)
+    {
+      string name = args.Name.Remove(args.Name.IndexOf(','));
+      string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+      string asmPath = Path.Join(path, $"{name}.dll");
+      Logger.Warning($"Trying to find {name} @ {asmPath}");
+      return Assembly.LoadFile(asmPath);
     }
 
     private void OnFinishLoadingGameStructure()

@@ -4,30 +4,33 @@ namespace ValheimExportHelper
 {
   class FixCodeFiles : PostExporterEx
   {
-    private string MonoScriptDir { get; set; }
+    private readonly string[] ScriptDirs = new[] { "MonoScript", "Scripts" };
 
     public override void Export()
     {
-      MonoScriptDir = Path.Join(CurrentRipper.Settings.AssetsPath, "MonoScript");
-      
-      DeleteStandardLibraries();
-      
       LogInfo("Fixing MonoScript/.cs source files (if any)");
-      WholeCodebaseFixes();
-      OneOffCodeFixes();
+
+      foreach (var dir in ScriptDirs)
+      {
+        string scriptDir = Path.Join(CurrentRipper.Settings.AssetsPath, dir);
+      
+        DeleteStandardLibraries(scriptDir);
+        WholeCodebaseFixes(scriptDir);
+        OneOffCodeFixes(scriptDir);
+      }
     }
 
-    private void DeleteStandardLibraries()
+    private void DeleteStandardLibraries(string scriptsDir)
     {
       LogInfo("Deleting standard libraries");
 
       // Script: Decompiled
-      TryDelete(Path.Join(MonoScriptDir, "Microsoft.CSharp"));
-      TryDelete(Path.Join(MonoScriptDir, "Mono.Posix"));
+      TryDelete(Path.Join(scriptsDir, "Microsoft.CSharp"));
+      TryDelete(Path.Join(scriptsDir, "Mono.Posix"));
 
       // Script: Dll Export Without Renaming
-      TryDelete(Path.Join(MonoScriptDir, "Microsoft.CSharp.dll"));
-      TryDelete(Path.Join(MonoScriptDir, "Mono.Posix.dll"));
+      TryDelete(Path.Join(scriptsDir, "Microsoft.CSharp.dll"));
+      TryDelete(Path.Join(scriptsDir, "Mono.Posix.dll"));
     }
 
     private void FixupFile(string filename)
@@ -38,18 +41,20 @@ namespace ValheimExportHelper
       File.WriteAllText(filename, file);
     }
 
-    private void WholeCodebaseFixes()
+    private void WholeCodebaseFixes(string scriptsDir)
     {
-      var codeFiles = Directory.EnumerateFiles(MonoScriptDir, "*.cs", SearchOption.AllDirectories);
+      if (!Directory.Exists(scriptsDir)) return;
+
+      var codeFiles = Directory.EnumerateFiles(scriptsDir, "*.cs", SearchOption.AllDirectories);
       foreach (var file in codeFiles)
       {
         FixupFile(file);
       }
     }
 
-    private void FixUtils()
+    private void FixUtils(string scriptsDir)
     {
-      string filename = Path.Join(MonoScriptDir, "assembly_utils", "Utils.cs");
+      string filename = Path.Join(scriptsDir, "assembly_utils", "Utils.cs");
       if (!File.Exists(filename)) return;
 
       string file = File.ReadAllText(filename);
@@ -63,9 +68,9 @@ namespace ValheimExportHelper
     // 4. ^\1\}                            Closing brace with the same indentation as the opening brace
     const string BlockRegex = @"\r?\n(\s+)\{[\s\S]+?^\1\}";
 
-    private void FixSteamworks()
+    private void FixSteamworks(string scriptsDir)
     {
-      string basePath = Path.Join(MonoScriptDir, "assembly_steamworks", "Steamworks");
+      string basePath = Path.Join(scriptsDir, "assembly_steamworks", "Steamworks");
 
       string callbackSourceFile = Path.Join(basePath, "Callback.cs");
       if (File.Exists(callbackSourceFile))
@@ -84,10 +89,10 @@ namespace ValheimExportHelper
       }
     }
 
-    private void OneOffCodeFixes()
+    private void OneOffCodeFixes(string scriptsDir)
     {
-      FixUtils();
-      FixSteamworks();
+      FixUtils(scriptsDir);
+      FixSteamworks(scriptsDir);
     }
   }
 }

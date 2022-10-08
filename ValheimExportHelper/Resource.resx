@@ -130,9 +130,6 @@
   <data name="AssetBundler" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\CreateAssetBundles.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="AvoidSavingYamlShaders" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\AvoidSavingYamlShaders.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="WorldGeneratorFix" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\WorldGeneratorFix.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>

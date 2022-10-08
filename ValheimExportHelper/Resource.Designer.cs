@@ -84,33 +84,6 @@ namespace ValheimExportHelper {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /**
-        /// * IMPORTANT: Remove this when it gets added to AssetRipper.
-        /// * Sourced from AssetRipper Discord, © trouger
-        ///*/
-        ///using System.Collections.Generic;
-        ///using UnityEditor;
-        ///using UnityEngine;
-        ///
-        ///class AvoidSavingYamlShaders : UnityEditor.AssetModificationProcessor
-        ///{
-        ///    private static List&lt;string&gt; s_PathList = new List&lt;string&gt;();
-        ///    
-        ///    private static string[] OnWillSaveAssets(string[] paths)
-        ///    {
-        ///        s_PathList.Clear();
-        ///        
-        ///        foreach (string path in paths)
-        ///        {
-        ///            [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string AvoidSavingYamlShaders {
-            get {
-                return ResourceManager.GetString("AvoidSavingYamlShaders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] Blank {

@@ -24,7 +24,6 @@
     {
       File.WriteAllText(Path.Join(EditorScriptsDir, "WorldGeneratorFix.cs"), Resource.WorldGeneratorFix);
       File.WriteAllText(Path.Join(EditorScriptsDir, "CreateAssetBundles.cs"), Resource.AssetBundler);
-      File.WriteAllText(Path.Join(EditorScriptsDir, "AvoidSavingYamlShaders.cs"), Resource.AvoidSavingYamlShaders);
     }
 
     private void AddBlankScene()

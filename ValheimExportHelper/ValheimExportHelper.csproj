@@ -11,11 +11,10 @@
     <PackageTags>AssetRipper</PackageTags>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Resources\AvoidSavingYamlShaders.cs" />
     <Compile Remove="Resources\Editor.cs" />
     <Compile Remove="Resources\ScuffedShaders.cs" />
     <Compile Remove="Resources\WorldGeneratorFix.cs" />
@@ -32,13 +31,12 @@
     </None>
     <Compile Remove="Resources\RestoreShadersOnSceneLoad.cs" />
     <Compile Remove="Resources\CreateAssetBundles.cs" />
-    <None Include="Resources\AvoidSavingYamlShaders.cs" />
     <None Include="Resources\CreateAssetBundles.cs" />
     <None Include="Resources\WorldGeneratorFix.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="YamlDotNet" Version="12.0.0" />
+    <PackageReference Include="YamlDotNet" Version="12.0.2" />
   </ItemGroup>
 
   <ItemGroup>

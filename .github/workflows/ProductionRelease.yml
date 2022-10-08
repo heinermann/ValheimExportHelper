@@ -22,17 +22,13 @@ jobs:
       run: dotnet build --no-restore -c Release
     - name: Test Build
       run: dotnet test --no-build --verbosity normal
-    - name: Setup build artifacts
-      run: |
-        mkdir Artifacts
-        mv ValheimExportHelper/bin/Release/net6.0/ValheimExportHelper.dll  Artifacts/ValheimExportHelper.dll
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
     # Artifact name
-        name: 'ValheimExportHelper.dll'
+        name: 'ValheimExportHelper'
     # A file, directory or wildcard pattern that describes what to upload
-        path: 'Artifacts/' 
+        path: 'ValheimExportHelper/bin/Release/net6.0/'
     
     - name: Grab Version
       run: |

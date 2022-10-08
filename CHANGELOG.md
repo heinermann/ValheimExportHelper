@@ -1,3 +1,6 @@
+## V1.3.0
+* Updated to work with AssetRipper 0.2.4.2
+
 ## V1.2.0
 * Updated to work with AssetRipper 0.2.3.0
 * Fixed various shader errors and issues. Unity will no longer corrupt them.
