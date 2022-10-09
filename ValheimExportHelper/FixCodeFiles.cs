@@ -59,10 +59,10 @@ namespace ValheimExportHelper
       return Regex.Replace(file, EventRegex, @"$1;", RegexOptions.Multiline);
     }
 
-    const string UncheckedRegex = @"override int GetHashCode\(\)\r?\n\s+\{\r?\n\s+return ";
+    const string UncheckedRegex = @"(override int GetHashCode\(\)\r?\n\s+\{\r?\n\s+return) \(";
     private string FixUncheckedHashCode(string file)
     {
-      return Regex.Replace(file, UncheckedRegex, @"$0 unchecked ", RegexOptions.Multiline);
+      return Regex.Replace(file, UncheckedRegex, @"$1 unchecked (", RegexOptions.Multiline);
     }
 
     private void FixupFile(string filename)

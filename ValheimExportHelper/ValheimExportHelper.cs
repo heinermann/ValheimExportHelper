@@ -54,7 +54,7 @@ namespace ValheimExportHelper
         new AddPostProcessingPackage(),
         new FixCodeFiles(),
         new FixCursor(),
-        new FixSteam(),
+        new FixPlugins(),
         new FixUnityProjectSettings(),
         new FixWAVs(),
         new RenameExportDir() // THIS MUST BE LAST
