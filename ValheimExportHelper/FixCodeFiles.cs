@@ -4,7 +4,7 @@ namespace ValheimExportHelper
 {
   class FixCodeFiles : PostExporterEx
   {
-    private readonly string[] ScriptDirs = new[] { "MonoScript", "Scripts" };
+    private static readonly string[] ScriptDirs = new[] { "MonoScript", "Scripts" };
 
     public override void Export()
     {
@@ -27,19 +27,53 @@ namespace ValheimExportHelper
       // Script: Decompiled
       TryDelete(Path.Join(scriptsDir, "Microsoft.CSharp"));
       TryDelete(Path.Join(scriptsDir, "Mono.Posix"));
+      TryDelete(Path.Join(scriptsDir, "XGamingRuntime"));
 
       // Script: Dll Export Without Renaming
       TryDelete(Path.Join(scriptsDir, "Microsoft.CSharp.dll"));
       TryDelete(Path.Join(scriptsDir, "Mono.Posix.dll"));
+      TryDelete(Path.Join(scriptsDir, "XGamingRuntime.dll"));
+    }
+
+    private string FixStructLayout(string file)
+    {
+      file = file.Replace("StructLayout(0", "StructLayout(LayoutKind.Sequential");
+      file = file.Replace("StructLayout(2", "StructLayout(LayoutKind.Explicit");
+      return file;
+    }
+
+    /**
+     * 1. ^(\s.*\bevent [\w<>.]+ \w+)\r?\n                    Event definition
+     * 2. (\s+)\{\r?\n                                        First open brace + spacing capture
+     * 3. (\2\s+)\[CompilerGenerated\]\r?\n                   First CompilerGenerated tag + spacing capture
+     * 4. \3add\r?\n                                          "add" declaration
+     * 5. \3\{[\w\W]+?\r?\n\3\}\r?\n                          "add" block capture
+     * 6. \3\[CompilerGenerated\]\r?\n                        Second CompilerGenerated tag
+     * 7. \3remove\r?\n                                       "remove" declaration
+     * 8. \3\{[\w\W]+?\r?\n\3\}\r?\n                          "remove" block capture
+     * 9. \2}                                                 Closing first brace.
+     */
+    const string EventRegex = @"^(\s.*\bevent [\w<>.]+ \w+)\r?\n(\s+)\{\r?\n(\2\s+)\[CompilerGenerated\]\r?\n\3add\r?\n\3\{[\w\W]+?\r?\n\3\}\r?\n\3\[CompilerGenerated\]\r?\n\3remove\r?\n\3\{[\w\W]+?\r?\n\3\}\r?\n\2\}";
+    private string FixEvents(string file)
+    {
+      return Regex.Replace(file, EventRegex, @"$1;", RegexOptions.Multiline);
+    }
+
+    const string UncheckedRegex = @"override int GetHashCode\(\)\r?\n\s+\{\r?\n\s+return ";
+    private string FixUncheckedHashCode(string file)
+    {
+      return Regex.Replace(file, UncheckedRegex, @"$0 unchecked ", RegexOptions.Multiline);
     }
 
     private void FixupFile(string filename)
     {
       string file = File.ReadAllText(filename);
-      file = file.Replace("StructLayout(0", "StructLayout(LayoutKind.Sequential");
-      file = file.Replace("StructLayout(2", "StructLayout(LayoutKind.Explicit");
+      file = FixStructLayout(file);
+      file = FixEvents(file);
+      file = FixUncheckedHashCode(file);
       File.WriteAllText(filename, file);
     }
+
 
     private void WholeCodebaseFixes(string scriptsDir)
     {
@@ -62,37 +96,9 @@ namespace ValheimExportHelper
       File.WriteAllText(filename, file);
     }
 
-    // 1. \r?\n                            Newline (both Windows and Linux)
-    // 2. (\s+)\{                          Save the indentation for the brace into a capture group
-    // 3. [\s\S]+?                         Everything else (non-greedy, so it stops when it matches the next thing)
-    // 4. ^\1\}                            Closing brace with the same indentation as the opening brace
-    const string BlockRegex = @"\r?\n(\s+)\{[\s\S]+?^\1\}";
-
-    private void FixSteamworks(string scriptsDir)
-    {
-      string basePath = Path.Join(scriptsDir, "assembly_steamworks", "Steamworks");
-
-      string callbackSourceFile = Path.Join(basePath, "Callback.cs");
-      if (File.Exists(callbackSourceFile))
-      {
-        string file = File.ReadAllText(callbackSourceFile);
-        file = Regex.Replace(file, $"event DispatchDelegate m_Func{BlockRegex}", "event DispatchDelegate m_Func;", RegexOptions.Multiline);
-        File.WriteAllText(callbackSourceFile, file);
-      }
-
-      string callResultSourceFile = Path.Join(basePath, "CallResult.cs");
-      if (File.Exists(callResultSourceFile))
-      {
-        string file = File.ReadAllText(callResultSourceFile);
-        file = Regex.Replace(file, $"event APIDispatchDelegate m_Func{BlockRegex}", "event APIDispatchDelegate m_Func;", RegexOptions.Multiline);
-        File.WriteAllText(callResultSourceFile, file);
-      }
-    }
-
     private void OneOffCodeFixes(string scriptsDir)
     {
       FixUtils(scriptsDir);
-      FixSteamworks(scriptsDir);
     }
   }
 }

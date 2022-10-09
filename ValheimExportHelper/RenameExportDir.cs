@@ -28,13 +28,22 @@ namespace ValheimExportHelper
       return match.Groups[1].Value;
     }
 
+    private static readonly string[] ScriptDirs = new[] { "MonoScript", "Scripts" };
+
+    private string GetVersionFile()
+    {
+      foreach (string dir in ScriptDirs)
+      {
+        string versionSourceFilename = Path.Join(CurrentRipper.Settings.AssetsPath, dir, "assembly_valheim", "Version.cs");
+        if (File.Exists(versionSourceFilename)) return File.ReadAllText(versionSourceFilename);
+      }
+      return null;
+    }
+
     private string GetVersionString()
     {
-      string versionSourceFilename = Path.Join(CurrentRipper.Settings.AssetsPath, "MonoScript", "assembly_valheim", "Version.cs");
-
-      if (!File.Exists(versionSourceFilename)) return "DllExport";
-
-      string versionSource = File.ReadAllText(versionSourceFilename);
+      string versionSource = GetVersionFile();
+      if (versionSource == null) return "DllExport";
 
       string major = ExtractDocumentValue(versionSource, "m_major");
       string minor = ExtractDocumentValue(versionSource, "m_minor");

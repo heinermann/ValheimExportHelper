@@ -1,5 +1,6 @@
 ## V1.3.0
 * Updated to work with AssetRipper 0.2.4.2
+* Various fixes for Valheim 0.211.8 (PlayFab)
 
 ## V1.2.0
 * Updated to work with AssetRipper 0.2.3.0
