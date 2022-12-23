@@ -1,3 +1,8 @@
+## V1.4.0
+* Updated to work with AssetRipper 0.3.0.0
+* Updated to use .NET 7
+* Fixed an issue with Valheim 0.212.9
+
 ## V1.3.0
 * Updated to work with AssetRipper 0.2.4.2
 * Various fixes for Valheim 0.211.8 (PlayFab)
