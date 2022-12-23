@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -58,14 +58,8 @@
     <ProjectReference Include="..\AssetRipper\AssetRipper.Core\AssetRipper.Core.csproj">
       <Private>False</Private>
       <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
-      <IncludeAssets>none</IncludeAssets>
       <ExcludeAssets>all</ExcludeAssets>
-    </ProjectReference>
-    <ProjectReference Include="..\AssetRipper\AssetRipper.Fundamentals\AssetRipper.Fundamentals.csproj">
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
-      <Private>False</Private>
       <IncludeAssets>none</IncludeAssets>
-      <ExcludeAssets>all</ExcludeAssets>
     </ProjectReference>
     <ProjectReference Include="..\AssetRipper\AssetRipper.Library\AssetRipper.Library.csproj">
       <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
