@@ -20,19 +20,19 @@ namespace ValheimExportHelper
       }
     }
 
+    private readonly string[] LibsToDelete =
+    {
+      "Microsoft.CSharp", "Mono.Posix", "XGamingRuntime", "Unity.TextMeshPro", "Unity.InputSystem"
+    };
     private void DeleteStandardLibraries(string scriptsDir)
     {
       LogInfo("Deleting standard libraries");
 
-      // Script: Decompiled
-      TryDelete(Path.Join(scriptsDir, "Microsoft.CSharp"));
-      TryDelete(Path.Join(scriptsDir, "Mono.Posix"));
-      TryDelete(Path.Join(scriptsDir, "XGamingRuntime"));
-
-      // Script: Dll Export Without Renaming
-      TryDelete(Path.Join(scriptsDir, "Microsoft.CSharp.dll"));
-      TryDelete(Path.Join(scriptsDir, "Mono.Posix.dll"));
-      TryDelete(Path.Join(scriptsDir, "XGamingRuntime.dll"));
+      foreach (var lib in LibsToDelete)
+      {
+        TryDelete(Path.Join(scriptsDir, lib));
+        TryDelete(Path.Join(scriptsDir, $"{lib}.dll"));
+      }
     }
 
     private string FixStructLayout(string file)
@@ -65,12 +65,19 @@ namespace ValheimExportHelper
       return Regex.Replace(file, UncheckedRegex, @"$1 unchecked (", RegexOptions.Multiline);
     }
 
+    const string AmbiguousDebugRegex = @"(\s)(Debug.Log\()";
+    private string FixAmbiguousDebugCalls(string file)
+    {
+      return Regex.Replace(file, AmbiguousDebugRegex, @"$1UnityEngine.$2", RegexOptions.Multiline);
+    }
+
     private void FixupFile(string filename)
     {
       string file = File.ReadAllText(filename);
       file = FixStructLayout(file);
       file = FixEvents(file);
       file = FixUncheckedHashCode(file);
+      file = FixAmbiguousDebugCalls(file);
       File.WriteAllText(filename, file);
     }
 
