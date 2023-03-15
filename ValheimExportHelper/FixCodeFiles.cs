@@ -22,7 +22,7 @@ namespace ValheimExportHelper
 
     private readonly string[] LibsToDelete =
     {
-      "Microsoft.CSharp", "Mono.Posix", "XGamingRuntime", "Unity.TextMeshPro", "Unity.InputSystem"
+      "Microsoft.CSharp", "Mono.Posix", "XGamingRuntime", "Unity.InputSystem"
     };
     private void DeleteStandardLibraries(string scriptsDir)
     {
@@ -43,7 +43,7 @@ namespace ValheimExportHelper
     }
 
     /**
-     * 1. ^(\s.*\bevent [\w<>.]+ \w+)\r?\n                    Event definition
+     * 1. ^(\s.*\bevent [\w<>., ]+? \w+)\r?\n                    Event definition
      * 2. (\s+)\{\r?\n                                        First open brace + spacing capture
      * 3. (\2\s+)\[CompilerGenerated\]\r?\n                   First CompilerGenerated tag + spacing capture
      * 4. \3add\r?\n                                          "add" declaration
@@ -53,7 +53,7 @@ namespace ValheimExportHelper
      * 8. \3\{[\w\W]+?\r?\n\3\}\r?\n                          "remove" block capture
      * 9. \2}                                                 Closing first brace.
      */
-    const string EventRegex = @"^(\s.*\bevent [\w<>.]+ \w+)\r?\n(\s+)\{\r?\n(\2\s+)\[CompilerGenerated\]\r?\n\3add\r?\n\3\{[\w\W]+?\r?\n\3\}\r?\n\3\[CompilerGenerated\]\r?\n\3remove\r?\n\3\{[\w\W]+?\r?\n\3\}\r?\n\2\}";
+    const string EventRegex = @"^(\s.*\bevent [\w<>., ]+? \w+)\r?\n(\s+)\{\r?\n(\2\s+)\[CompilerGenerated\]\r?\n\3add\r?\n\3\{[\w\W]+?\r?\n\3\}\r?\n\3\[CompilerGenerated\]\r?\n\3remove\r?\n\3\{[\w\W]+?\r?\n\3\}\r?\n\2\}";
     private string FixEvents(string file)
     {
       return Regex.Replace(file, EventRegex, @"$1;", RegexOptions.Multiline);
@@ -65,7 +65,7 @@ namespace ValheimExportHelper
       return Regex.Replace(file, UncheckedRegex, @"$1 unchecked (", RegexOptions.Multiline);
     }
 
-    const string AmbiguousDebugRegex = @"(\s)(Debug.Log\()";
+    const string AmbiguousDebugRegex = @"([^.\w])(Debug.Log(Warning|Error)?\()";
     private string FixAmbiguousDebugCalls(string file)
     {
       return Regex.Replace(file, AmbiguousDebugRegex, @"$1UnityEngine.$2", RegexOptions.Multiline);
