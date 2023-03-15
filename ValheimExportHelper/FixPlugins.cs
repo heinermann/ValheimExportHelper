@@ -12,15 +12,14 @@ namespace ValheimExportHelper
 
       GameStructure = CurrentRipper.GameStructure.MixedStructure ?? CurrentRipper.GameStructure.PlatformStructure;
 
-      CopyAppId();
+      WriteAppId();
       CopyPlugins();
     }
 
-    private void CopyAppId()
+    private void WriteAppId()
     {
-      string srcFilename = Path.Join(GameStructure.RootPath, "steam_appid.txt");
       string dstFilename = Path.Join(CurrentRipper.Settings.ProjectRootPath, "steam_appid.txt");
-      File.Copy(srcFilename, dstFilename, overwrite: true);
+      File.WriteAllText(dstFilename, "892970\n");
     }
 
     private void CopyPlugins()
