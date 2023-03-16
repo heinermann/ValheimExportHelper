@@ -1,3 +1,7 @@
+## V1.5.0
+* Fixed issues with corrupted WAVs.
+* Fixed several issues with Valheim patch 0.214.2. It is still worse than previous versions, but loadable.
+
 ## V1.4.0
 * Updated to work with AssetRipper 0.3.0.0
 * Updated to use .NET 7
