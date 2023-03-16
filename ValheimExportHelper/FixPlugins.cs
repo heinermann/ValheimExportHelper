@@ -1,16 +1,10 @@
-﻿using AssetRipper.Core.Structure.GameStructure.Platforms;
-
-namespace ValheimExportHelper
+﻿namespace ValheimExportHelper
 {
   class FixPlugins : PostExporterEx
   {
-    PlatformGameStructure GameStructure { get; set; }
-
     public override void Export()
     {
       LogInfo("Adding Steam library dependencies");
-
-      GameStructure = CurrentRipper.GameStructure.MixedStructure ?? CurrentRipper.GameStructure.PlatformStructure;
 
       WriteAppId();
       CopyPlugins();
@@ -18,14 +12,14 @@ namespace ValheimExportHelper
 
     private void WriteAppId()
     {
-      string dstFilename = Path.Join(CurrentRipper.Settings.ProjectRootPath, "steam_appid.txt");
+      string dstFilename = Path.Join(ProjectRootPath, "steam_appid.txt");
       File.WriteAllText(dstFilename, "892970\n");
     }
 
     private void CopyPlugins()
     {
-      string pluginsPath = Path.Join(GameStructure.GameDataPath, "Plugins");
-      string dstPath = Path.Join(CurrentRipper.Settings.AssetsPath, "Plugins");
+      string pluginsPath = Path.Join(GameDataPath, "Plugins");
+      string dstPath = Path.Join(AssetsPath, "Plugins");
 
       // Recreate subdirectory tree
       Directory.CreateDirectory(dstPath);

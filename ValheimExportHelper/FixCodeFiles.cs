@@ -12,7 +12,7 @@ namespace ValheimExportHelper
 
       foreach (var dir in ScriptDirs)
       {
-        string scriptDir = Path.Join(CurrentRipper.Settings.AssetsPath, dir);
+        string scriptDir = Path.Join(AssetsPath, dir);
       
         DeleteStandardLibraries(scriptDir);
         WholeCodebaseFixes(scriptDir);

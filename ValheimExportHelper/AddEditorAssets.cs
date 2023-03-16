@@ -16,7 +16,7 @@
 
     private void CreateScriptsDir()
     {
-      EditorScriptsDir = Path.Join(CurrentRipper.Settings.AssetsPath, "Editor", "ValheimExportHelper");
+      EditorScriptsDir = Path.Join(AssetsPath, "Editor", "ValheimExportHelper");
       Directory.CreateDirectory(EditorScriptsDir);
     }
 
@@ -29,12 +29,12 @@
     private void AddBlankScene()
     {
       LogInfo("Creating blank scene");
-      File.WriteAllBytes(Path.Join(CurrentRipper.Settings.AssetsPath, "Scenes", "BlankScene.unity"), Resource.Blank);
+      File.WriteAllBytes(Path.Join(AssetsPath, "Scenes", "BlankScene.unity"), Resource.Blank);
     }
 
     private void AddShaderNotes()
     {
-      File.WriteAllBytes(Path.Join(CurrentRipper.Settings.AssetsPath, "Shader", "README.md"), Resource.ShadersReadme);
+      File.WriteAllBytes(Path.Join(AssetsPath, "Shader", "README.md"), Resource.ShadersReadme);
     }
   }
 }

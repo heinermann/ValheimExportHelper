@@ -10,7 +10,7 @@ namespace ValheimExportHelper
 
       using (var zip = new ZipArchive(new MemoryStream(Resource.PostProcessing)))
       {
-        zip.ExtractToDirectory(CurrentRipper.Settings.AssetsPath);
+        zip.ExtractToDirectory(AssetsPath);
       }
     }
   }

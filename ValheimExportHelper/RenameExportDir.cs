@@ -12,9 +12,9 @@ namespace ValheimExportHelper
       LogInfo("Renaming project directory");
 
       string projectName = $"Valheim {GetVersionString()} - {DateTime.Now:yyyy-MM-dd}";
-      string targetDirPath = Path.Join(CurrentRipper.Settings.ExportRootPath, projectName);
+      string targetDirPath = Path.Join(ExportRootPath, projectName);
 
-      Directory.Move(CurrentRipper.Settings.ProjectRootPath, targetDirPath);
+      Directory.Move(ProjectRootPath, targetDirPath);
     }
 
     private string ExtractDocumentValue(string document, string variable)
@@ -34,7 +34,7 @@ namespace ValheimExportHelper
     {
       foreach (string dir in ScriptDirs)
       {
-        string versionSourceFilename = Path.Join(CurrentRipper.Settings.AssetsPath, dir, "assembly_valheim", "Version.cs");
+        string versionSourceFilename = Path.Join(AssetsPath, dir, "assembly_valheim", "Version.cs");
         if (File.Exists(versionSourceFilename)) return File.ReadAllText(versionSourceFilename);
       }
       return null;

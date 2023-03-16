@@ -8,7 +8,7 @@
     {
       LogInfo("Fixing Unity project settings");
 
-      ProjectPackagePath = Path.Join(CurrentRipper.Settings.ProjectRootPath, "Packages");
+      ProjectPackagePath = Path.Join(ProjectRootPath, "Packages");
 
       AddVulkanSupport();
       DisableMotionBlur();
@@ -41,7 +41,7 @@
 
     private void AddVulkanSupport()
     {
-      string filename = Path.Join(CurrentRipper.Settings.ProjectSettingsPath, "ProjectSettings.asset");
+      string filename = Path.Join(ProjectSettingsPath, "ProjectSettings.asset");
       UnityYaml yaml = UnityYaml.LoadYaml(filename);
       ApplySettingsChanges(yaml.Data);
       yaml.Save();
@@ -49,7 +49,7 @@
 
     private void DisableMotionBlur()
     {
-      string filename = Path.Join(CurrentRipper.Settings.AssetsPath, "MonoBehaviour", "ingame.asset");
+      string filename = Path.Join(AssetsPath, "MonoBehaviour", "ingame.asset");
       UnityYaml yaml = UnityYaml.LoadYaml(filename);
       yaml.Data["MonoBehaviour"]["motionBlur"]["m_Enabled"] = "0";
       yaml.Save();

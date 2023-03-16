@@ -6,7 +6,7 @@
     {
       LogInfo("Fixing cursor texture type");
 
-      string cursorMetaFile = Path.Join(CurrentRipper.Settings.AssetsPath, "Texture2D", "cursor.png.meta");
+      string cursorMetaFile = Path.Join(AssetsPath, "Texture2D", "cursor.png.meta");
 
       FixCursorMetadata(cursorMetaFile);
     }

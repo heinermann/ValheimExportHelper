@@ -1,15 +1,26 @@
-﻿using AssetRipper.Library;
+﻿using AssetRipper.Core.Structure.GameStructure.Platforms;
+using AssetRipper.Library;
 using AssetRipper.Library.Exporters;
 
 namespace ValheimExportHelper
 {
   internal abstract class PostExporterEx : LoggingTrait, IPostExporter
   {
-    public Ripper CurrentRipper { get; set; }
+    protected string ProjectRootPath;
+    protected string AssetsPath;
+    protected string ExportRootPath;
+    protected string GameDataPath;
+    protected string ProjectSettingsPath;
 
     public void Init(Ripper ripper)
     {
-      CurrentRipper = ripper;
+      ProjectRootPath = ripper.Settings.ProjectRootPath;
+      AssetsPath = ripper.Settings.AssetsPath;
+      ExportRootPath = ripper.Settings.ExportRootPath;
+      ProjectSettingsPath = ripper.Settings.ProjectSettingsPath;
+
+      PlatformGameStructure GameStructure = ripper.GameStructure.MixedStructure ?? ripper.GameStructure.PlatformStructure;
+      GameDataPath = GameStructure.GameDataPath;
     }
 
     void IPostExporter.DoPostExport(Ripper ripper)

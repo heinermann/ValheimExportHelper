@@ -6,7 +6,7 @@
     {
       LogInfo("Fixing corrupted WAV files");
 
-      string boilLoopWavPath = Path.Join(CurrentRipper.Settings.AssetsPath, "AudioClip", "Water_BoilLoop.wav");
+      string boilLoopWavPath = Path.Join(AssetsPath, "AudioClip", "Water_BoilLoop.wav");
       FixWAVFile(boilLoopWavPath);
     }
 
