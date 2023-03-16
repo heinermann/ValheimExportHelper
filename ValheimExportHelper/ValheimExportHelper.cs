@@ -1,6 +1,5 @@
 ﻿using AssetRipper.Core.Logging;
 using AssetRipper.Library;
-using AssetRipper.Library.Exporters;
 using System.Reflection;
 
 namespace ValheimExportHelper
@@ -48,7 +47,7 @@ namespace ValheimExportHelper
 
     private void OnFinishExporting()
     {
-      new List<IPostExporter>()
+      new List<PostExporterEx>()
       {
         new AddEditorAssets(),
         new AddPostProcessingPackage(),
