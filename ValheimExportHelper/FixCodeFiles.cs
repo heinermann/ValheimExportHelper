@@ -92,7 +92,7 @@ namespace ValheimExportHelper
     const string SwitchCaseLongRegex = @"(case \d+)L:";
     private string FixSwitchCaseLong(string file)
     {
-      return Regex.Replace(file, SwitchCaseLongRegex, @"$1", RegexOptions.Multiline);
+      return Regex.Replace(file, SwitchCaseLongRegex, @"$1:", RegexOptions.Multiline);
     }
 
     private void FixupFile(string filename)
