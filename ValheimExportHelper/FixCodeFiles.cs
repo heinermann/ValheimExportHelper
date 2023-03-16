@@ -22,7 +22,7 @@ namespace ValheimExportHelper
 
     private readonly string[] LibsToDelete =
     {
-      "Microsoft.CSharp", "Mono.Posix", "XGamingRuntime", "Unity.InputSystem"
+      "Microsoft.CSharp", "Mono.Posix", "XGamingRuntime"
     };
     private void DeleteStandardLibraries(string scriptsDir)
     {
@@ -59,7 +59,7 @@ namespace ValheimExportHelper
       return Regex.Replace(file, EventRegex, @"$1;", RegexOptions.Multiline);
     }
 
-    const string UncheckedRegex = @"(override int GetHashCode\(\)\r?\n\s+\{\r?\n\s+return) \(";
+    const string UncheckedRegex = @"(public override int GetHashCode\(\)\r?\n\s+\{\r?\n\s+return) \(";
     private string FixUncheckedHashCode(string file)
     {
       return Regex.Replace(file, UncheckedRegex, @"$1 unchecked (", RegexOptions.Multiline);
@@ -71,6 +71,30 @@ namespace ValheimExportHelper
       return Regex.Replace(file, AmbiguousDebugRegex, @"$1UnityEngine.$2", RegexOptions.Multiline);
     }
 
+    const string SpecialNameFnRegex = @"^(\s*)\[SpecialName\]\r?\n\1Transform .*?\r?\n\1\{[\w\W]+?\r?\n\1\}\r?\n";
+    private string FixSpecialNameFn(string file)
+    {
+      return Regex.Replace(file, SpecialNameFnRegex, "", RegexOptions.Multiline);
+    }
+
+    const string BadCtorRegex = @"^\s+base\._[0-9A-F]{4}ctor\(.*$";
+    private string FixBadCtor(string file)
+    {
+      return Regex.Replace(file, BadCtorRegex, "", RegexOptions.Multiline);
+    }
+
+    const string ReadOnlyAttrRegex = @"\[IsReadOnly\]";
+    private string FixReadOnlyAttr(string file)
+    {
+      return Regex.Replace(file, ReadOnlyAttrRegex, "", RegexOptions.Multiline);
+    }
+
+    const string SwitchCaseLongRegex = @"(case \d+)L:";
+    private string FixSwitchCaseLong(string file)
+    {
+      return Regex.Replace(file, SwitchCaseLongRegex, @"$1", RegexOptions.Multiline);
+    }
+
     private void FixupFile(string filename)
     {
       string file = File.ReadAllText(filename);
@@ -78,6 +102,10 @@ namespace ValheimExportHelper
       file = FixEvents(file);
       file = FixUncheckedHashCode(file);
       file = FixAmbiguousDebugCalls(file);
+      file = FixSpecialNameFn(file);
+      file = FixBadCtor(file);
+      file = FixReadOnlyAttr(file);
+      file = FixSwitchCaseLong(file);
       File.WriteAllText(filename, file);
     }
 
