@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Reflection.Metadata;
+using System.Text.RegularExpressions;
 
 namespace ValheimExportHelper
 {
@@ -20,12 +21,32 @@ namespace ValheimExportHelper
     private string ExtractDocumentValue(string document, string variable)
     {
       Match match = Regex.Match(document, $@"int {variable} = (\d+);", RegexOptions.Multiline);
-      if (!match.Success)
+      if (match.Success)
       {
-        LogError($"Failed to retrieve Version information for {variable}");
-        return "0";
+        return match.Groups[1].Value;
       }
-      return match.Groups[1].Value;
+      return null;
+    }
+
+    private string ExtractOldVersionString(string document)
+    {
+      string major = ExtractDocumentValue(document, "m_major");
+      string minor = ExtractDocumentValue(document, "m_minor");
+      string patch = ExtractDocumentValue(document, "m_patch");
+
+      if (major == null || minor == null || patch == null) return null;
+      return $"{major}.{minor}.{patch}";
+    }
+
+    private string ExtractNewVersionString(string document)
+    {
+      Match match = Regex.Match(document, @"GameVersion CurrentVersion .*new GameVersion\((\d+), (\d+), (\d+)\);", RegexOptions.Multiline);
+      if (match.Success)
+      {
+        var grp = match.Groups;
+        return $"{grp[1].Value}.{grp[2].Value}.{grp[3].Value}";
+      }
+      return null;
     }
 
     private static readonly string[] ScriptDirs = new[] { "MonoScript", "Scripts" };
@@ -45,11 +66,17 @@ namespace ValheimExportHelper
       string versionSource = GetVersionFile();
       if (versionSource == null) return "DllExport";
 
-      string major = ExtractDocumentValue(versionSource, "m_major");
-      string minor = ExtractDocumentValue(versionSource, "m_minor");
-      string patch = ExtractDocumentValue(versionSource, "m_patch");
-
-      return $"{major}.{minor}.{patch}";
+      string result = ExtractOldVersionString(versionSource);
+      if (result == null)
+      {
+        result = ExtractNewVersionString(versionSource);
+        if (result == null)
+        {
+          LogError("Unable to identify version.");
+          result = "unknown";
+        }
+      }
+      return result;
     }
   }
 }

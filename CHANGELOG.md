@@ -1,3 +1,7 @@
+## V2.0.0
+* Made into a standalone application for AssetRipper 3.2.0.
+* Fix version capture for Valheim 0.217.5.
+
 ## V1.5.0
 * Fixed issues with corrupted WAVs.
 * Fixed several issues with Valheim patch 0.214.2. It is still worse than previous versions, but loadable.

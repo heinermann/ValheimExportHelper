@@ -18,6 +18,8 @@ namespace ValheimExportHelper
         WholeCodebaseFixes(scriptDir);
         OneOffCodeFixes(scriptDir);
       }
+
+      DeleteStandardLibraries(Path.Join(AssetsPath, "Plugins"));
     }
 
     private readonly string[] LibsToDelete =

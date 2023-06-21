@@ -11,7 +11,15 @@
     <PackageTags>AssetRipper</PackageTags>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.5.0</Version>
+    <Version>2.0.0</Version>
+    <OutputType>Exe</OutputType>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <StartupObject>ValheimExportHelper.ValheimExportHelper</StartupObject>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <IsPublishable>True</IsPublishable>
+    <PublishTrimmed>true</PublishTrimmed>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +39,7 @@
     </None>
     <Compile Remove="Resources\RestoreShadersOnSceneLoad.cs" />
     <Compile Remove="Resources\CreateAssetBundles.cs" />
+    <Content Include="Resources\icon.ico" />
     <None Include="Resources\CreateAssetBundles.cs" />
     <None Include="Resources\WorldGeneratorFix.cs" />
   </ItemGroup>
@@ -55,18 +64,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AssetRipper\AssetRipper.Core\AssetRipper.Core.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
-      <ExcludeAssets>all</ExcludeAssets>
-      <IncludeAssets>none</IncludeAssets>
-    </ProjectReference>
-    <ProjectReference Include="..\AssetRipper\AssetRipper.Library\AssetRipper.Library.csproj">
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
-      <Private>False</Private>
-      <IncludeAssets>none</IncludeAssets>
-      <ExcludeAssets>all</ExcludeAssets>
-    </ProjectReference>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

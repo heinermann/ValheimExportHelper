@@ -1,53 +1,86 @@
-﻿using AssetRipper.Core.Logging;
-using AssetRipper.Library;
-using System.Reflection;
+﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace ValheimExportHelper
 {
-  public class ValheimExportHelper : PluginBase
+  class Logger : LoggingTrait { }
+
+  public static class ValheimExportHelper
   {
-    public override string Name => "ValheimExportHelper";
+    private static Ripper ripper = new Ripper();
+    private static Regex importRegex = new Regex(@"Import : PC game structure has been found at '(.*)'");
+    private static Regex exportRegex = new Regex(@"Export : Attempting to export assets to (.*)\.\.\.");
 
-    public override void Initialize()
+    private static Logger log = new Logger();
+
+    static void Main(string[] args)
     {
-      Logger.Info(LogCategory.Plugin, "[ValheimExportHelper] Initializing... Waiting to detect game.");
-      CurrentRipper.OnFinishLoadingGameStructure += OnFinishLoadingGameStructure;
-
-      AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolve);
-      Assembly.Load("YamlDotNet");
+      Console.WriteLine(ValheimAsciiLogo);
+      LaunchAssetRipper();
     }
 
-    private bool IsValheim()
+    static void LaunchAssetRipper()
     {
-      return CurrentRipper.GameStructure.Name != null && CurrentRipper.GameStructure.Name.Contains("valheim", StringComparison.InvariantCultureIgnoreCase);
+      Process process = new Process();
+      process.EnableRaisingEvents = true;
+
+      process.OutputDataReceived += new DataReceivedEventHandler(AssetRipperOutput);
+      process.ErrorDataReceived += new DataReceivedEventHandler(AssetRipperError);
+      process.Exited += new EventHandler(AssetRipperClosed);
+
+      process.StartInfo.FileName = "AssetRipper.exe";
+      //process.StartInfo.Arguments = "";
+      process.StartInfo.UseShellExecute = false;
+      process.StartInfo.RedirectStandardOutput = true;
+      process.StartInfo.RedirectStandardError = true;
+
+      process.Start();
+      process.BeginOutputReadLine();
+      process.BeginErrorReadLine();
+
+      process.WaitForExit();
     }
 
-    private static Assembly AssemblyResolve(object sender, ResolveEventArgs args)
+    static void AssetRipperClosed(object sender, EventArgs e)
     {
-      string name = args.Name.Remove(args.Name.IndexOf(','));
-      string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-      string asmPath = Path.Join(path, $"{name}.dll");
-      Logger.Warning($"Trying to find {name} @ {asmPath}");
-      return Assembly.LoadFile(asmPath);
+      log.LogInfo("AssetRipper was closed.");
     }
 
-    private void OnFinishLoadingGameStructure()
+    static void AssetRipperError(object sender, DataReceivedEventArgs e)
     {
-      if (!IsValheim())
+      if (e.Data == null) return;
+      Console.BackgroundColor = ConsoleColor.Red;
+      Console.WriteLine($"{e.Data}");
+      Console.ResetColor();
+    }
+
+    static void AssetRipperOutput(object sender, DataReceivedEventArgs e)
+    {
+      if (e.Data == null) return;
+      Console.WriteLine($"{e.Data}");
+
+      var importMatch = importRegex.Match(e.Data);
+      var exportMatch = exportRegex.Match(e.Data);
+
+      if (importMatch.Success)
       {
-        Logger.Info("[ValheimExportHelper] Game is NOT Valheim, we do nothing");
-        return;
+        ripper.GameDataPath = importMatch.Groups[1].Value + "\\valheim_Data";
+        log.LogInfo("Found GameDataPath.");
       }
-
-      Logger.Info("[ValheimExportHelper] Detected as Valheim");
-      Logger.Info(ValheimAsciiLogo);
-
-      CurrentRipper.OnFinishExporting += OnFinishExporting;
+      else if (exportMatch.Success)
+      {
+        ripper.ExportRootPath = exportMatch.Groups[1].Value;
+        log.LogInfo("Found ExportRootPath.");
+      }
+      else if (e.Data == "General : Export Complete!")
+      {
+        OnFinishExporting();
+      }
     }
 
-    private void OnFinishExporting()
+    static void OnFinishExporting()
     {
-      new List<PostExporterEx>()
+      var stages = new List<PostExporterEx>()
       {
         new AddEditorAssets(),
         new AddPostProcessingPackage(),
@@ -57,7 +90,13 @@ namespace ValheimExportHelper
         new FixUnityProjectSettings(),
         new FixWAVs(),
         new RenameExportDir() // THIS MUST BE LAST
-      }.ForEach(CurrentRipper.AddPostExporter);
+      };
+
+      foreach (PostExporterEx stage in stages)
+      {
+        stage.DoPostExport(ripper);
+      }
+      log.LogInfo("Finished.");
     }
 
     // Created and modified from https://asciiart.club/

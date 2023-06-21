@@ -1,8 +1,4 @@
-﻿using AssetRipper.Core.Structure.GameStructure.Platforms;
-using AssetRipper.Library;
-using AssetRipper.Library.Exporters;
-
-/**
+﻿/**
  * AssetRipper output log interception notes:
  *
  * For GameDataPath (source path):
@@ -19,7 +15,7 @@ using AssetRipper.Library.Exporters;
 
 namespace ValheimExportHelper
 {
-  internal abstract class PostExporterEx : LoggingTrait, IPostExporter
+  internal abstract class PostExporterEx : LoggingTrait
   {
     protected string ProjectRootPath;
     protected string AssetsPath;
@@ -30,18 +26,17 @@ namespace ValheimExportHelper
     public void Init(Ripper ripper)
     {
       // ExportRootPath is the base export path, i.e. `<chosenExportDirectory>\valheim`
-      ExportRootPath = ripper.Settings.ExportRootPath;
+      ExportRootPath = ripper.ExportRootPath;
       ProjectRootPath = Path.Join(ExportRootPath, "ExportedProject");
       AssetsPath = Path.Join(ProjectRootPath, "Assets");
       ProjectSettingsPath = Path.Join(ProjectRootPath, "ProjectSettings");
 
-      PlatformGameStructure GameStructure = ripper.GameStructure.MixedStructure ?? ripper.GameStructure.PlatformStructure;
       // GameDataPath is the `valheim_Data` directory i.e. `Steam\steamapps\common\Valheim\valheim_Data`.
       // It should contain a `Plugins` folder.
-      GameDataPath = GameStructure.GameDataPath;
+      GameDataPath = ripper.GameDataPath;
     }
 
-    void IPostExporter.DoPostExport(Ripper ripper)
+    public void DoPostExport(Ripper ripper)
     {
       Init(ripper);
       Export();
