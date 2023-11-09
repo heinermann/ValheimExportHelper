@@ -33,10 +33,11 @@ jobs:
         path: 'ValheimExportHelper/bin/Release/net7.0/'
     
     - name: Grab Version
-      run: |
-        VERSION=$(sed -nr "s|.*<Version>(.*)</Version>|\1|p" ValheimExportHelper/ValheimExportHelper.csproj)
-        echo "::set-output name=version::$VERSION"
       id: version
+      uses: mavrosxristoforos/get-xml-info@1.0
+      with:
+        xml-file: ValheimExportHelper/ValheimExportHelper.csproj
+        xpath: /Project/PropertyGroup/Version
 
     - name: Create Release Zip
       uses: vimtor/action-zip@v1
@@ -50,8 +51,8 @@ jobs:
       with:
         draft: false
         prerelease: false
-        name: ${{steps.version.outputs.version}}
-        tag_name: ${{steps.version.outputs.version}}
+        name: ${{steps.version.outputs.info}}
+        tag_name: ${{steps.version.outputs.info}}
         body_path: CHANGELOG.md
         files: ValheimExportHelper.zip
       env:
